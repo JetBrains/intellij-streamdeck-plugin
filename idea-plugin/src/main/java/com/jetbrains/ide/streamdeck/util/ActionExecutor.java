@@ -13,7 +13,6 @@ import com.intellij.openapi.wm.IdeFocusManager;
 import com.intellij.openapi.wm.IdeFrame;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
-import com.jetbrains.ide.streamdeck.settings.ActionServerSettings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -75,9 +74,9 @@ public class ActionExecutor {
         action.actionPerformed(
                 AnActionEvent.createFromDataContext(ActionPlaces.MAIN_TOOLBAR, null,
                         dataId -> {
-                            System.out.println("Request dataId =" + dataId);
+                            // System.out.println("Request dataId =" + dataId);
                             Project project = ProjectUtil.tryGuessFocusedProject();
-                            System.out.println("Request project =" + project);
+                            // System.out.println("Request project =" + project);
 
                             if (CommonDataKeys.PROJECT.is(dataId)) return project;
                             return null;
