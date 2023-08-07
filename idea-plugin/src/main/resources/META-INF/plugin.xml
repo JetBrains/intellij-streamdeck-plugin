@@ -17,10 +17,12 @@
      <h1> Stream Deck plugin for JetBrains IDE</h1>
 A plugin for JetBrains IDE that works as a backend action service for the Stream Deck plugin: IntelliJ IDE.<br>
 Meet the zero-config design, most plugin features work out of the box once you install this plugin and the paired Stream Deck JS plugin.<br>
+For the complete features list and usage guide, see the documentation at <a href="https://github.com/JetBrains/intellij-streamdeck-plugin">
+https://github.com/JetBrains/intellij-streamdeck-plugin</a>.
   ]]></description>
 
     <change-notes><![CDATA[
-    2022.2.0 - Initial release of the plugin.
+    2022.2.0 - The initial release of the plugin.
   ]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.
