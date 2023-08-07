@@ -1,0 +1,41 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin require-restart="true">
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.jetbrains.ide.streamdeck</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Stream Deck</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor>JetBrains</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+     <h1> Stream Deck plugin for JetBrains IDE</h1>
+A plugin for JetBrains IDE that works as a backend action service for the Stream Deck plugin: IntelliJ IDE.<br>
+Meet the zero-config design, most plugin features work out of the box once you install this plugin and the paired Stream Deck JS plugin.<br>
+  ]]></description>
+
+    <change-notes><![CDATA[
+    2022.2.0 - Initial release of the plugin.
+  ]]></change-notes>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!--    <applicationInitializedListener implementation="com.jetbrains.ide.streamdeck.BackendServiceLoader" />-->
+        <applicationConfigurable id="streamdeck.settings"
+                                 groupId="tools"
+                                 displayName="Stream Deck"
+                                 instance="com.jetbrains.ide.streamdeck.settings.ActionServerConfigurable"/>
+        <applicationService serviceImplementation="com.jetbrains.ide.streamdeck.settings.ActionServerSettings"/>
+        <httpRequestHandler implementation="com.jetbrains.ide.streamdeck.service.StreamDeckHttpService"/>
+    </extensions>
+</idea-plugin>

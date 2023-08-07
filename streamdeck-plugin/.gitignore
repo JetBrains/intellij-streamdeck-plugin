@@ -1,0 +1,6 @@
+/build
+node_modules
+DistributionTool
+coverage
+#com.jetbrains.ide.sdPlugin
+com.jetbrains.ide.sdPlugin/public/dist/*.js

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>com.jetbrains.ide.pi</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="sdpi.css">
+        <script src="./dist/idea-property-inspector-bundle.js"></script>
+    </head>
+    <body>
+        <div class="sdpi-wrapper" id="mainSettings">
+            <div class="sdpi-item">
+                <div class="sdpi-item-label host-label">Host(*)</div>
+                <input class="sdpi-item-value" type="text" id="host">
+            </div>
+            <div class="sdpi-item" style="display: none">
+                <div class="sdpi-item-label port-label">Port</div>
+                <input class="sdpi-item-value" type="number" id="port">
+            </div>
+            <div class="sdpi-item" style="display: none">
+                <div class="sdpi-item-label password-label">Password</div>
+                <input class="sdpi-item-value" type="password" id="password">
+            </div>
+            <div class="sdpi-item">
+                <div class="sdpi-item-label action-label">Customize Action</div>
+                <input class="sdpi-item-value" type="text" id="action">
+            </div>
+
+            <div class="sdpi-item">
+                <button class="sdpi-item-value save-label" id="save">Save</button>
+            </div>
+
+            <hr>
+
+        </div>
+
+        <h3>Support / Feedback</h3>
+        <p>
+            You found a bug? You have a feature request? <br>
+            I would love to hear about it <a href="https://youtrack.jetbrains.com/issue/IDEA-280508/Support-for-Elgato-Stream-Deck"
+                                             rel="noopener"
+                                             target="_blank">here</a>!
+        </p>
+    </body>
+</html>

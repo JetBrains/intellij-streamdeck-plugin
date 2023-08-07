@@ -1,0 +1,164 @@
+{
+  "Actions": [
+    {
+      "Icon": "icons/actions/update_dark",
+      "Name": "Update Project",
+      "States": [
+        {
+          "Image": "icons/update@20x20_dark"
+        }
+      ],
+      "Tooltip": "Update Project",
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.git.pull"
+    },
+    {
+      "Icon": "icons/actions/createNewProjectTab",
+      "Name": "New Project",
+      "States": [
+        {
+          "Image": "icons/createNewProjectTab"
+        }
+      ],
+      "Tooltip": "New Project",
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.new"
+    },
+    {
+      "Icon": "icons/run_dark",
+      "Name": "Run",
+      "States": [
+        {
+          "Image": "icons/run_dark"
+        }
+      ],
+      "Tooltip": "Run",
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.run"
+    },
+    {
+      "Icon": "icons/debug_dark",
+      "Name": "Debug",
+      "States": [
+        {
+          "Image": "icons/debug_dark"
+        }
+      ],
+      "Tooltip": "Debug",
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.debug"
+    },
+
+    {
+      "Icon": "icons/stepOver_dark",
+      "Name": "Step Over",
+      "SupportedInMultiActions": true,
+      "States": [
+        {
+          "Image": "icons/stepOver_dark"
+        }
+      ],
+      "Tooltip": "Step Over",
+      "UUID": "com.jetbrains.idea.step.over"
+    },
+
+    {
+      "Icon": "icons/stepOut_dark",
+      "Name": "Step Out",
+      "SupportedInMultiActions": true,
+      "States": [
+        {
+          "Image": "icons/stepOut_dark"
+        }
+      ],
+      "UUID": "com.jetbrains.idea.action.step.out"
+    },
+
+
+    {
+      "Icon": "icons/resume_dark",
+      "Name": "Resume",
+      "States": [
+        {
+          "Image": "icons/resume_dark"
+        }
+      ],
+      "Tooltip": "Resume",
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.resume"
+    },
+
+    {
+      "Icon": "icons/pause_dark",
+      "Name": "Pause",
+      "States": [
+        {
+          "Image": "icons/pause_dark"
+        }
+      ],
+      "Tooltip": "Pause",
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.action.pause"
+    },
+
+    {
+      "Icon": "icons/find_dark",
+      "Name": "Search Everywhere",
+      "States": [
+        {
+          "Image": "icons/find_dark"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.search.everywhere"
+    },
+
+    {
+      "Icon": "icons/stop_dark",
+      "Name": "Stop",
+      "States": [
+        {
+          "Image": "icons/stop_dark"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.action.stop"
+    },
+
+    {
+      "Icon": "icons/projectStructure_dark",
+      "Name": "Project Structure",
+      "States": [
+        {
+          "Image": "icons/projectStructure_dark"
+        }
+      ],
+      "SupportedInMultiActions": true,
+      "UUID": "com.jetbrains.idea.action.show.project.structure"
+    }
+  ],
+  "SDKVersion": 2,
+  "Author": "Jacky Liu",
+  "Category": "JetBrains IDE",
+  "CategoryIcon": "icons/idea_logo_2022.3",
+  "CodePath": "public/plugin.html",
+  "PropertyInspectorPath": "public/property-inspector.html",
+  "Description": "Enables Stream Deck integration with JetBrains IDE. This plugin requires JetBrains IDE plugin `Stream Deck IDE Connector`.",
+  "Name": "JetBrains IDE",
+  "Icon": "icons/idea_logo_2022.3",
+  "URL": "https://www.elgato.com/en/gaming/stream-deck",
+  "Version": "1.0.0",
+  "OS": [
+    {
+        "Platform": "mac",
+        "MinimumVersion" : "10.11"
+    },
+    {
+        "Platform": "windows",
+        "MinimumVersion" : "10"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "5.0"
+  }
+}

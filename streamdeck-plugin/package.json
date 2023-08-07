@@ -1,0 +1,38 @@
+{
+  "name": "streamdeck-plugin-idea",
+  "version": "1.0.0",
+  "description": "Streamdeck plugin for JetBrains IDE",
+  "repository": "https://github.com/jetbrains/streamdeck-idea-plugin",
+  "scripts": {
+    "browserify": "browserify build/idea-property-inspector.js > com.jetbrains.ide.sdPlugin/public/dist/idea-property-inspector-bundle.js && browserify build/idea-plugin.js > com.jetbrains.ide.sdPlugin/public/dist/idea-plugin-bundle.js",
+    "build": "npm run tsc && npm run browserify",
+    "lint": "eslint src/**/*.ts",
+    "test": "jest --coverage",
+    "tsc": "tsc -p tsconfig.json",
+    "distribution":"DistributionTool -b -i com.jetbrains.ide.sdPlugin -o ../releases"
+  },
+  "author": "Thibaut Sabot",
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/dom": "^8.13.0",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^17.0.33",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
+    "msw": "^0.39.2",
+    "prettier": "^2.6.2",
+    "ts-jest": "^28.0.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4",
+    "watchify": "^4.0.0"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
+    "streamdeck-typescript": "^3.1.4"
+  }
+}

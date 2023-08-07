@@ -1,0 +1,16 @@
+### GET request with a header
+#GET http://localhost:21420/action/NewProject
+#auth: pwd
+
+
+### For built-in Server test
+GET http://localhost:63342/api/action/NewProject
+Accept: application/json
+
+### GET request with disabled redirects
+GET http://localhost:63343/api/action/Resume
+Accept: application/json
+
+### StepOver
+GET http://localhost:63343/api/action/StepOver
+Accept: application/json
