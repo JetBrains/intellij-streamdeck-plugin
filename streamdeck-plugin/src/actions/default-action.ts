@@ -1,21 +1,28 @@
-import { Subject } from 'rxjs';
 import {
-    KeyDownEvent,
-    KeyUpEvent, SDOnActionEvent,
+    DidReceiveGlobalSettingsEvent,
+    DidReceiveSettingsEvent,
+    KeyUpEvent,
+    SDOnActionEvent,
+    SendToPluginEvent,
     StreamDeckAction,
     WillAppearEvent,
-    WillDisappearEvent,
+    WillDisappearEvent
 } from 'streamdeck-typescript';
 
-import { IdeaPlugin } from '../idea-plugin'
-import {GlobalSettingsInterface, SceneSettingsInterface} from "../utils/interface";
-import {fetchApi, fetchJetBrainsIDE, isGlobalSettingsSet} from "../utils";
+import {IdeaPlugin} from '../idea-plugin'
+import {ActionSettingsInterface, GlobalSettingsInterface} from "../utils/interface";
+import {fetchJetBrainsIDE, isGlobalSettingsSet} from "../utils";
 import {Status} from "../types";
 
 export abstract class DefaultAction<Instance> extends StreamDeckAction<
     IdeaPlugin,
     Instance
 > {
+
+    protected context: string;
+    protected customTitle: string;
+    protected showTitle: string;
+
     public constructor(public plugin: IdeaPlugin, actionName: string) {
         super(plugin, actionName);
         console.log(`Initialized ${actionName}`);
@@ -26,48 +33,45 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
      */
     abstract actionId(): string;
 
-    actionTitle():string {
+    /**
+     * Allow customize button title, default to action id.
+     */
+    actionTitle(): string {
         return this.actionId();
     }
 
     @SDOnActionEvent('keyUp')
-    public async onKeyUp({ payload }: KeyUpEvent<SceneSettingsInterface>): Promise<void> {
+    public async onKeyUp({payload}: KeyUpEvent<ActionSettingsInterface>): Promise<void> {
         console.log('onKeyUp() actionId=' + this.actionId())
-        let action = payload.settings.action
+        let action = payload.settings.action // current button's customized action ID
         console.log('onKeyUp() customAction=' + action)
 
-        if(action == null || action === '') {
+        if (action == null || action === '') {
             action = this.actionId()
         }
 
-        if(action == null || action === '') {
+        if (action == null || action === '') {
             return
         }
 
         const globalSettings = this.plugin.settingsManager.getGlobalSettings<GlobalSettingsInterface>()
-        let host:string = '127.0.0.1'
-        let password:string = ''
-        let port:string = ''
+        let host: string = '127.0.0.1'
+        let password: string = ''
+        let port: string = ''
 
         if (isGlobalSettingsSet(globalSettings)) {
             host = globalSettings.host
         }
 
-        if(globalSettings !== undefined) {
-            const settings:GlobalSettingsInterface = globalSettings as GlobalSettingsInterface
+        if (globalSettings !== undefined) {
+            const settings: GlobalSettingsInterface = globalSettings as GlobalSettingsInterface
             password = settings.password
             port = settings.port
         }
 
-        // await fetchApi<Status>({
-        //     endpoint: `/api/action/${this.actionId()}`,
-        //     accessToken: '',
-        //     method: 'GET',
-        // })
-
         await fetchJetBrainsIDE<Status>({
             endpoint: `/api/action/${action}`,
-            port:port,
+            port: port,
             password: password,
             accessToken: '',
             host: host,
@@ -77,31 +81,75 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
     }
 
     @SDOnActionEvent('willAppear')
-    onContextAppear({ context , payload }: WillAppearEvent) {
-        console.log('onContextAppear() actionId=' + this.actionId())
-        let actionTitle = payload.settings.action
+    onContextAppear({context, payload}: WillAppearEvent) {
+        console.log('onContextAppear() actionId=' + this.actionId() + " context=" + context)
+        this.context = context // Save for later update title
+        this.readCustomActionTitle(payload.settings)
+        this.toggleTitleVisible()
+    }
 
-        console.log('onContextAppear() customAction=' + actionTitle)
-
-        if(actionTitle == null || actionTitle === '') {
-            actionTitle =  this.actionTitle()
+    private readCustomActionTitle(settings: ActionSettingsInterface): void {
+        let actionTitle = settings.action
+        if (actionTitle == null || actionTitle === '') {
+            actionTitle = this.actionTitle()
         }
 
-        if(actionTitle == null || actionTitle === '') {
+        if (actionTitle == null || actionTitle === '') {
             actionTitle = this.actionId()
         }
 
-        if(actionTitle == null || actionTitle === '') {
-            return
-        }
+        this.customTitle = actionTitle;
+    }
 
-        this.plugin.setTitle(
-            actionTitle,
-            context
-        );
+    toggleTitleVisible(): void {
+        if (this.showTitle !== "on" && this.context != undefined) {
+            this.plugin.setTitle("", this.context);
+        } else if (this.context != undefined) {
+            if (this.customTitle == null || this.customTitle === '') {
+                this.plugin.setTitle("", this.context);
+                return
+            } else {
+                this.plugin.setTitle(this.customTitle, this.context);
+            }
+        }
     }
 
     @SDOnActionEvent('willDisappear')
     onContextDisappear(event: WillDisappearEvent): void {
+    }
+
+    // TODO Not work?!
+    @SDOnActionEvent('sendToPlugin')
+    onSendToPluginEvent({context, payload}: SendToPluginEvent): void {
+        console.log('onSendToPluginEvent() payload.showTitle=' + payload.showTitle)
+    }
+
+    /**
+     * Update current button's title based on the customized action id (if any)
+     * @param context
+     * @param settings
+     * @private
+     */
+    @SDOnActionEvent('didReceiveSettings')
+    private onSettings({context, payload: {settings}}: DidReceiveSettingsEvent<ActionSettingsInterface>) {
+        console.log('onSettings() settings.action=' + settings.action)
+        this.readCustomActionTitle(settings)
+        this.toggleTitleVisible()
+    }
+
+    /**
+     * Once triggered the title visible checkbox in the Property Inspection page, this event will be fired again but
+     * no context provided.
+     * @param settings
+     * @private
+     */
+    @SDOnActionEvent('didReceiveGlobalSettings')
+    private onReceiveGlobalSettings({payload: {settings}}: DidReceiveGlobalSettingsEvent<GlobalSettingsInterface>) {
+        // this.plugin.setTitle(settings.count.toString() ?? 0, context);
+        console.log('onReceiveGlobalSettings() payload.showTitle=' + settings.showTitle)
+        this.showTitle = settings.showTitle;
+
+        // console.log('onReceiveGlobalSettings() this.context=' + this.context)
+        this.toggleTitleVisible();
     }
 }

@@ -1,25 +1,12 @@
 import {
-  DeviceSettingsInterface,
   GlobalSettingsInterface,
-  SceneSettingsInterface,
+  ActionSettingsInterface,
 } from './interface'
 
 export function isGlobalSettingsSet(
   settings: GlobalSettingsInterface | unknown
 ): settings is GlobalSettingsInterface {
   return (settings as GlobalSettingsInterface).host !== undefined
-}
-
-export function isDeviceSetting(
-  settings: DeviceSettingsInterface | unknown
-): settings is DeviceSettingsInterface {
-  return (settings as DeviceSettingsInterface).deviceId !== undefined
-}
-
-export function isSceneSetting(
-  settings: SceneSettingsInterface | unknown
-): settings is SceneSettingsInterface {
-  return (settings as SceneSettingsInterface).sceneId !== undefined
 }
 
 interface FetchAPI {

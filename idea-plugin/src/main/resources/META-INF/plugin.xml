@@ -14,9 +14,9 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-     <h1> Stream Deck plugin for JetBrains IDE</h1>
-A plugin for JetBrains IDE that works as a backend action service for the Stream Deck plugin: IntelliJ IDE.<br>
-Meet the zero-config design, most plugin features work out of the box once you install this plugin and the paired Stream Deck JS plugin.<br>
+     <h1> Stream Deck plugin for IntelliJ IDE</h1>
+A plugin for IntelliJ IDE that works as a backend action service for the Stream Deck plugin: IntelliJ IDE.<br>
+Meet the zero-config design, most plugin features work out of the box once you install this plugin and the paired <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin">Stream Deck JS plugin</a>.<br>
 For the complete features list and usage guide, see the documentation at <a href="https://github.com/JetBrains/intellij-streamdeck-plugin">
 https://github.com/JetBrains/intellij-streamdeck-plugin</a>.
   ]]></description>

@@ -1,13 +1,13 @@
 ![Official](https://jb.gg/badges/official-plastic.svg)
 
-# Stream Deck IDE Plugin
+# Stream Deck Plugin for IntelliJ IDE
 
-An JetBrains IDE plugin and a paired Stream Deck JS plugin to support developing with pleasure
+An IntelliJ IDE plugin and a paired Stream Deck JS plugin to support developing with pleasure
 using  [Stream Deck](https://developer.elgato.com/documentation/stream-deck/), see
 also https://youtrack.jetbrains.com/issue/IDEA-280508/Support-for-Elgato-Stream-Deck.
 
 <!-- TOC -->
-* [Stream Deck IDE Plugin](#stream-deck-ide-plugin)
+* [Stream Deck Plugin for IntelliJ IDE](#stream-deck-plugin-for-intellij-ide)
 * [Features](#features)
 * [Quick Start](#quick-start)
   * [Prerequisites](#prerequisites)
@@ -44,7 +44,7 @@ Below is a list of tested actions and their supported IDEs:
 > You can try invoke any `Action ID` found in the
 > IDE's [Internal Mode | UI Inspector | Action](https://plugins.jetbrains.com/docs/intellij/internal-ui-inspector.html#action),
 > note that not every action will work, for example `Compare.SameVersion` will not work.
->
+> This plugin doesn't support Fleet.
 
 # Quick Start
 
@@ -58,8 +58,7 @@ Due to the limitation of Stream Deck software, only **Windows** and **macOS** is
 ## Install
 
 1. Clone repository and double-click `releases/com.jetbrains.ide.streamDeckPlugin` to install plugin to Stream Deck
-2. Install file `releases/com.jetbrains.ide.streamdeck.plugin-1.0.zip` or search `Stream Deck` in at your IDE's *
-   *Settings / Preferences | Plugins** page. Restart your IDE if prompted. Please follow the steps here if you didn't
+2. Install plugin by search `Stream Deck` in at your IDE's **Settings / Preferences | Plugins** page or manually install file `releases/com.jetbrains.ide.streamdeck.plugin-1.0.zip`. Restart your IDE if prompted. Please follow the steps here if you didn't
    familiar JetBrains IDE: https://www.jetbrains.com/help/idea/managing-plugins.html
 3. Add the action from `JetBrains IDE` section to Stream Deck
 4. Click the action button at Stream Deck and see it acts in your IDE
@@ -92,10 +91,10 @@ Click on the action and enter the following parameters:
 
 | Param name                     | Optional | Description                                                        |
 |--------------------------------|----------|--------------------------------------------------------------------|
-| Hide Title                     | N        | Display/Hide the button title                                      |
+| Title Visible                  | N        | Toggle all buttons' title visibility                               |
 | Password for client connection | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
 | Host                           | Y        | Connect to a remote running IDE                                    |
-| Action                         | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
+| Customize                      | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
 
 # Contributing
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)

@@ -1,9 +1,3 @@
-import { GlobalSettingsInterface, SceneSettingsInterface } from '../utils/interface'
-import { KeyUpEvent, SDOnActionEvent, StreamDeckAction } from 'streamdeck-typescript'
-import { fetchApi, isGlobalSettingsSet } from '../utils/index'
-
-import { IdeaPlugin } from '../idea-plugin'
-import { Status } from '../types'
 import {DefaultAction} from "./default-action";
 
 //

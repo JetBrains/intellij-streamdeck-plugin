@@ -7,13 +7,10 @@ import {
   isGlobalSettingsSet,
   fetchApi,
   SelectElement,
-  isDeviceSetting,
-  isSceneSetting,
 } from './utils/index'
 import {
   GlobalSettingsInterface,
-  SceneSettingsInterface,
-  DeviceSettingsInterface,
+  ActionSettingsInterface,
 } from './utils/interface'
 
 const pluginName = 'com.jetbrains.ide'
@@ -31,6 +28,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   private passwordElement: HTMLInputElement;
   private actionElement: HTMLInputElement;
   private saveElement: HTMLButtonElement;
+  private showTitleElement: HTMLInputElement;
 
   constructor() {
     super()
@@ -54,22 +52,18 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     ) as HTMLInputElement;
     this.actionElement = document.getElementById('action') as HTMLInputElement;
     this.saveElement = document.getElementById('save') as HTMLButtonElement;
+    this.showTitleElement = document.getElementById(
+        'singlechk'
+    ) as HTMLInputElement;
 
-    this.saveElement?.addEventListener('click', this.onValidateButtonPressed.bind(this))
-
-    validateButton?.addEventListener('click', this.onValidateButtonPressed.bind(this))
-
+    this.saveElement?.addEventListener('click', this.onSaveButtonPressed.bind(this))
+    this.showTitleElement?.addEventListener('click', this.onUpdateTitleButtonPressed.bind(this))
 
     switch (this.actionInfo.action) {
-      case pluginName + '.device': {
+      case pluginName + '.custom': {
         selectLabel.textContent = 'Devices'
         validateButton.textContent = 'Fetch devices list'
         behaviour.className = 'sdpi-item' // Remove hidden class and display radio selection
-        break
-      }
-      case pluginName + '.scene': {
-        validateButton.textContent = 'Fetch scenes list'
-        selectLabel.textContent = 'Scenes'
         break
       }
     }
@@ -80,24 +74,24 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
   }
 
-  // Save settings
-  private async onValidateButtonPressed() {
+  /**
+   * Save global settings and customized action ID settings
+   * @private
+   */
+  private async onSaveButtonPressed() {
     console.log('onValidateButtonPressed()')
 
-    const accessToken = (<HTMLInputElement>document.getElementById('accesstoken'))?.value
     const password = (<HTMLInputElement>document.getElementById('password'))?.value
     const host = this.hostElement?.value
     const action = this.actionElement.value
-    console.log('password =  ' + password + ", action=" + action)
-    this.settingsManager.setGlobalSettings({ accessToken, password, host })
+    const showTitle = this.showTitleElement.checked ? "on" : "off"
+    console.log('password =  ' + password + ", action=" + action + ", showTitle=" + showTitle)
+    this.settingsManager.setGlobalSettings({ password, host, showTitle })
 
     let elements: SelectElement[] = []
 
     switch (this.actionInfo.action) {
-      case pluginName + '.scene': {
-        break
-      }
-      case pluginName + '.device': {
+      case pluginName + '.custom': {
         break
       }
     }
@@ -108,6 +102,21 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
       action: action
     })
     this.requestSettings() // requestSettings will add the options to the select element
+
+    // this.sendToPlugin( { showTitle }, "updateTitle")
+  }
+
+  /**
+   * Only update the title global visibility status.
+   * @private
+   */
+  private async onUpdateTitleButtonPressed() {
+    console.log('onUpdateTitleButtonPressed()')
+
+    const showTitle = this.showTitleElement.checked ? "on" : "off"
+    this.settingsManager.setGlobalSettings({ showTitle })
+
+    // this.sendToPlugin( { showTitle }, "updateTitle")
   }
 
   // Prefill PI elements from cache
@@ -117,11 +126,12 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     this.requestSettings()
     const globalSettings = this.settingsManager.getGlobalSettings<GlobalSettingsInterface>()
 
+    // this.showTitleElement.checked = true
+
     if (isGlobalSettingsSet(globalSettings)) {
-      const accessToken = globalSettings.accessToken
-      if (accessToken) {
-        (<HTMLInputElement>document.getElementById('accesstoken')).value = accessToken
-      }
+      const showTitle = globalSettings.showTitle
+      this.showTitleElement.checked = showTitle === "on";
+
       const password = globalSettings.password;
       if(password) {
         console.log(`password=${password}`)
@@ -133,36 +143,15 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
       }
     }
   }
-
-  // Get the devices list from cache
   @SDOnPiEvent('didReceiveSettings')
   onReceiveSettings({
     payload,
-  }: DidReceiveSettingsEvent<SceneSettingsInterface>): void {
+  }: DidReceiveSettingsEvent<ActionSettingsInterface>): void {
     const select = document.getElementById('select_value') as HTMLSelectElement
     console.log("onReceiveSettings()")
     console.debug(payload.settings)
 
     this.actionElement.value = payload.settings.action ?? "";
-
-    let activeIndex: number | undefined
-    if (isDeviceSetting(payload.settings)) {
-      const deviceId = payload.settings.deviceId
-      this.selectedOptionId = deviceId
-
-      this.selectedBehaviour = payload.settings.behaviour;
-
-      (document.getElementById(this.selectedBehaviour) as HTMLInputElement).checked = true
-
-      activeIndex = this.selectOptions?.findIndex((element) => element.id === deviceId) || 0
-    }
-    if (isSceneSetting(payload.settings)) {
-      const sceneId = payload.settings.sceneId
-      activeIndex = this.selectOptions?.findIndex((element) => element.id === sceneId) || 0
-
-      this.selectedOptionId = sceneId
-    }
-
   }
 }
 

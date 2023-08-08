@@ -5,14 +5,10 @@ export interface GlobalSettingsInterface {
   host: string
   port: string
   password: string
+  showTitle: string
 }
 
-export interface SceneSettingsInterface {
+export interface ActionSettingsInterface {
   sceneId: string
   action: string
-}
-
-export interface DeviceSettingsInterface {
-  deviceId: string
-  behaviour: string
 }
