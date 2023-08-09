@@ -10,6 +10,6 @@ export class DebugAction extends DefaultAction<DebugAction> {
     // }
 
     actionId(): string {
-        return "Debug\n";
+        return "Debug";
     }
 }

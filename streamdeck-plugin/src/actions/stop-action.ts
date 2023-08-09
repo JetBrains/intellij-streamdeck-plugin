@@ -7,6 +7,6 @@ export class StopWithDropDownAction extends DefaultAction<StopWithDropDownAction
   }
 
   actionTitle():string {
-    return "Stop\n";
+    return "Stop";
   }
 }

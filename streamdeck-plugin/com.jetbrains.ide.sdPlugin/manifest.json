@@ -1,7 +1,7 @@
 {
   "Actions": [
     {
-      "Icon": "icons/actions/update_dark",
+      "Icon": "icons/actions/update@20x20_dark",
       "Name": "Update Project",
       "States": [
         {

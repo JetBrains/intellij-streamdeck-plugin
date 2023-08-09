@@ -130,7 +130,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
     if (isGlobalSettingsSet(globalSettings)) {
       const showTitle = globalSettings.showTitle
-      this.showTitleElement.checked = showTitle === "on";
+      this.showTitleElement.checked = (showTitle === "on");
 
       const password = globalSettings.password;
       if(password) {

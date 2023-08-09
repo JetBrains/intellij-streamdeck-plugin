@@ -7,6 +7,6 @@ export class RunAction extends DefaultAction<RunAction> {
   // }
 
   actionId(): string {
-    return "Run\n";
+    return "Run";
   }
 }

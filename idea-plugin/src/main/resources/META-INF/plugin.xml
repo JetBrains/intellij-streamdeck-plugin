@@ -15,14 +15,16 @@
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
      <h1> Stream Deck plugin for IntelliJ IDE</h1>
-A plugin for IntelliJ IDE that works as a backend action service for the Stream Deck plugin: IntelliJ IDE.<br>
-Meet the zero-config design, most plugin features work out of the box once you install this plugin and the paired <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin">Stream Deck JS plugin</a>.<br>
-For the complete features list and usage guide, see the documentation at <a href="https://github.com/JetBrains/intellij-streamdeck-plugin">
-https://github.com/JetBrains/intellij-streamdeck-plugin</a>.
+A plugin for IntelliJ IDE that works as a backend action service for the companion Stream Deck plugin: IntelliJ IDE.<br>
+Meet the zero-config design, all plugin features work out of the box once you install this plugin and the paired
+<a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin"
+>Stream Deck plugin</a>(will also be available in Stream Deck Store soon).<br>
+For the complete features list and usage guide, see the <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/README.md">
+Stream Deck Plugin documentation</a>.
   ]]></description>
 
     <change-notes><![CDATA[
-    2022.2.0 - The initial release of the plugin.
+    2023.2.0 - The initial release of the plugin.
   ]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.
