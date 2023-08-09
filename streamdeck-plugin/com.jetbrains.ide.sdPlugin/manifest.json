@@ -25,7 +25,7 @@
       "UUID": "com.jetbrains.idea.new"
     },
     {
-      "Icon": "icons/run_dark",
+      "Icon": "icons/actions/run_dark",
       "Name": "Run",
       "States": [
         {
@@ -37,7 +37,7 @@
       "UUID": "com.jetbrains.idea.run"
     },
     {
-      "Icon": "icons/debug_dark",
+      "Icon": "icons/actions/debug_dark",
       "Name": "Debug",
       "States": [
         {
@@ -50,7 +50,7 @@
     },
 
     {
-      "Icon": "icons/stepOver_dark",
+      "Icon": "icons/actions/stepOver_dark",
       "Name": "Step Over",
       "SupportedInMultiActions": true,
       "States": [
@@ -63,7 +63,7 @@
     },
 
     {
-      "Icon": "icons/stepOut_dark",
+      "Icon": "icons/actions/stepOut_dark",
       "Name": "Step Out",
       "SupportedInMultiActions": true,
       "States": [
@@ -76,7 +76,7 @@
 
 
     {
-      "Icon": "icons/resume_dark",
+      "Icon": "icons/actions/resume_dark",
       "Name": "Resume",
       "States": [
         {
@@ -89,7 +89,7 @@
     },
 
     {
-      "Icon": "icons/pause_dark",
+      "Icon": "icons/actions/pause_dark",
       "Name": "Pause",
       "States": [
         {
@@ -102,7 +102,7 @@
     },
 
     {
-      "Icon": "icons/find_dark",
+      "Icon": "icons/actions/find_dark",
       "Name": "Search Everywhere",
       "States": [
         {
@@ -114,7 +114,7 @@
     },
 
     {
-      "Icon": "icons/stop_dark",
+      "Icon": "icons/actions/stop_dark",
       "Name": "Stop",
       "States": [
         {
@@ -126,7 +126,7 @@
     },
 
     {
-      "Icon": "icons/projectStructure_dark",
+      "Icon": "icons/actions/projectStructure_dark",
       "Name": "Project Structure",
       "States": [
         {
@@ -140,13 +140,13 @@
   "SDKVersion": 2,
   "Author": "Jacky Liu",
   "Category": "JetBrains IDE",
-  "CategoryIcon": "icons/idea_logo_2022.3",
+  "CategoryIcon": "icons/category/idea",
   "CodePath": "public/plugin.html",
   "PropertyInspectorPath": "public/property-inspector.html",
-  "Description": "Enables Stream Deck integration with JetBrains IDE. This plugin requires JetBrains IDE plugin `Stream Deck IDE Connector`.",
+  "Description": "Enables Stream Deck integration with JetBrains IDE. This plugin requires JetBrains IDE plugin Stream Deck.",
   "Name": "JetBrains IDE",
-  "Icon": "icons/idea_logo_2022.3",
-  "URL": "https://www.elgato.com/en/gaming/stream-deck",
+  "Icon": "icons/idea",
+  "URL": "https://github.com/JetBrains/intellij-streamdeck-plugin",
   "Version": "1.0.0",
   "OS": [
     {

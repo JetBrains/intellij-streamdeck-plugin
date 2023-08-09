@@ -63,6 +63,10 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
             host = globalSettings.host
         }
 
+        if(host === undefined) {
+            host = '127.0.0.1'
+        }
+
         if (globalSettings !== undefined) {
             const settings: GlobalSettingsInterface = globalSettings as GlobalSettingsInterface
             password = settings.password
