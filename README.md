@@ -57,9 +57,9 @@ Due to the limitation of Stream Deck software, only **Windows** and **macOS** is
 
 ## Install
 
-1. Clone repository and double-click `releases/com.jetbrains.ide.streamDeckPlugin` to install plugin to Stream Deck
+1. Open https://apps.elgato.com/plugins/com.jetbrains.ide or search `JetBrains` from the Stream Deck Store to install Stream Deck plugin. You may also clone this repository then double-click `releases/com.jetbrains.ide.streamDeckPlugin` to install the latest plugin to Stream Deck desktop app
 2. Install plugin by search `Stream Deck` in at your IDE's **Settings / Preferences | Plugins** page or manually install file `releases/com.jetbrains.ide.streamdeck.plugin-1.0.zip`. Restart your IDE if prompted. Please follow the steps here if you didn't
-   familiar JetBrains IDE: https://www.jetbrains.com/help/idea/managing-plugins.html
+   familiar with the JetBrains IDE: https://www.jetbrains.com/help/idea/managing-plugins.html
 3. Add the action from `JetBrains IDE` section to Stream Deck
 4. Click the action button at Stream Deck and see it acts in your IDE
 
@@ -94,7 +94,7 @@ Click on the action and enter the following parameters:
 | Title Visible                  | N        | Toggle all buttons' title visibility                               |
 | Password for client connection | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
 | Host                           | Y        | Connect to a remote running IDE                                    |
-| Customize                      | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
+| Customize Action               | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
 
 # Contributing
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
