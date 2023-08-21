@@ -4,7 +4,15 @@
 
 
 ### For built-in Server test
-GET http://localhost:63342/api/action/NewProject
+GET http://localhost:63343/api/action/NewProject
+Accept: application/json
+
+### For built-in Server test
+GET http://localhost:63343/api/action/Run
+Accept: application/json
+
+### For built-in Server test
+GET http://localhost:63343/api/action/Debug
 Accept: application/json
 
 ### GET request with disabled redirects
@@ -13,4 +21,8 @@ Accept: application/json
 
 ### StepOver
 GET http://localhost:63343/api/action/StepOver
+Accept: application/json
+
+### StepOver
+GET http://localhost:63343/api/action/OpenFile
 Accept: application/json
