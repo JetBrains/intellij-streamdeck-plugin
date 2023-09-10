@@ -143,11 +143,11 @@
   "CategoryIcon": "icons/category/idea",
   "CodePath": "public/plugin.html",
   "PropertyInspectorPath": "public/property-inspector.html",
-  "Description": "Enables Stream Deck integration with JetBrains IDE. This plugin requires JetBrains IDE plugin Stream Deck.",
+  "Description": "Enables Stream Deck integration with JetBrains IDEs such as IDEA, Rider, WebStorm, Android Studio etc. This plugin requires JetBrains IDE plugin Stream Deck.",
   "Name": "JetBrains IDE",
   "Icon": "icons/idea",
   "URL": "https://github.com/JetBrains/intellij-streamdeck-plugin",
-  "Version": "1.0.0",
+  "Version": "1.0.1",
   "OS": [
     {
         "Platform": "mac",

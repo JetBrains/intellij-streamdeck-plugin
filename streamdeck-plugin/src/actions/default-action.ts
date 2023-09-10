@@ -63,7 +63,7 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
             host = globalSettings.host
         }
 
-        if(host === undefined) {
+        if(host === undefined || host === '') {
             host = '127.0.0.1'
         }
 
@@ -73,7 +73,7 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
             port = settings.port
         }
 
-        await fetchJetBrainsIDE<Status>({
+        await fetchJetBrainsIDE({
             endpoint: `/api/action/${action}`,
             port: port,
             password: password,

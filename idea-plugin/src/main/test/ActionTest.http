@@ -26,3 +26,23 @@ Accept: application/json
 ### StepOver
 GET http://localhost:63343/api/action/OpenFile
 Accept: application/json
+
+
+### MergeAllWindowsAction
+GET http://localhost:63343/api/action/MergeAllWindowsAction
+Accept: application/json
+
+
+### org.intellij.plugins.markdown.ui.actions.styling.ToggleBoldAction
+GET http://localhost:63343/api/action/org.intellij.plugins.markdown.ui.actions.styling.ToggleBoldAction
+Accept: application/json
+
+
+
+### Vcs.ShowTabbedFileHistory
+GET http://localhost:63344/api/action/Vcs.ShowTabbedFileHistory
+Accept: application/json
+
+### MergeAllWindowsAction
+GET http://localhost:63344/api/action/MergeAllWindowsAction
+Accept: application/json

@@ -40,31 +40,57 @@ export async function fetchApi<T>({ body, endpoint, method, accessToken }: Fetch
  * @param host
  * @param port
  */
-export async function fetchJetBrainsIDE<T>({ body, endpoint, method, password, host, port }: FetchAPI) {
-  if(port !== undefined && port !== null) {
+export async function fetchJetBrainsIDE({ body, endpoint, method, password, host, port }: FetchAPI) {
+  if(port !== undefined && port !== null && port !== '') {
       try {
-          await fetch(`http://${host}:${port}${endpoint}`, {
+          // await fetch(`http://${host}:${port}${endpoint}`, {
+          //     method,
+          //     headers: {
+          //         Authorization: `${password}`,
+          //     },
+          //     body,
+          // })
+
+          // net::ERR_CONNECTION_REFUSED
+          fetch(`http://${host}:${port}${endpoint}`, {
               method,
               headers: {
                   Authorization: `${password}`,
               },
               body,
-          })
+          }).catch(err => console.log('fetchJetBrainsIDE Failed', err.message));
       } catch (e) {
           console.log(e)
       }
   } else {
       for (let i = 63342; i <= 63352; i++) {
+          console.log(`fetch http://${host}:${i}${endpoint}`)
           try {
-              await fetch(`http://${host}:${i}${endpoint}`, {
+              // 2023 Sep 8, this await fetch will throw 404 exception then only do the first loop skip the rest,
+              // try-catch doesn't work here, nave no idea about the reason
+              // await fetch(`http://${host}:${i}${endpoint}`, {
+              //     method,
+              //     headers: {
+              //         Authorization: `${password}`,
+              //     },
+              //     body,
+              // })
+
+              // net::ERR_CONNECTION_REFUSED
+              fetch(`http://${host}:${i}${endpoint}`, {
                   method,
                   headers: {
                       Authorization: `${password}`,
                   },
                   body,
               })
+                  // .then(response => response.json())
+                  // .then(json => console.log(json))
+                  .catch(err => console.log('fetchJetBrainsIDE Failed', err.message));
+
+              // console.log(api_call.status);
           } catch (e) {
-              console.log(e)
+              console.log("fetchJetBrainsIDE failed:" + e)
           }
       }
   }

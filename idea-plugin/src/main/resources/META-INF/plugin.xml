@@ -24,7 +24,10 @@ Stream Deck Plugin documentation</a>.
   ]]></description>
 
     <change-notes><![CDATA[
-    2023.2.0 - The initial release of the plugin.
+    2023.2.1<br>
+     - Support general Editor actions such as org.intellij.plugins.markdown.ui.actions.styling.ToggleBoldAction #10.<br>
+    2023.2.0<br>
+     - The initial release of the plugin.
   ]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.

@@ -19,12 +19,8 @@ const pluginName = 'com.jetbrains.ide'
  * Load and save settings.
  */
 class IdeaPI extends StreamDeckPropertyInspectorHandler {
-  private selectOptions?: SelectElement[]
   private selectedBehaviour = 'toggle'
-  private selectedOptionId: string
-
   private hostElement: HTMLInputElement;
-  private portElement: HTMLInputElement;
   private passwordElement: HTMLInputElement;
   private actionElement: HTMLInputElement;
   private saveElement: HTMLButtonElement;
@@ -46,7 +42,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     // this.mainElement.style.display = 'initial';
 
     this.hostElement = document.getElementById('host') as HTMLInputElement;
-    this.portElement = document.getElementById('port') as HTMLInputElement;
     this.passwordElement = document.getElementById(
         'password'
     ) as HTMLInputElement;
@@ -67,6 +62,20 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
         break
       }
     }
+
+    // Open all URL in HTML like this: <a data-open-url="https://github.com/JetBrains/intellij-streamdeck-plugin/issues">Bugtracker</a>
+    document.querySelectorAll('[data-open-url]').forEach(e => {
+      const value = e.getAttribute('data-open-url');
+      if(value) {
+        e?.addEventListener('click', () => {
+          this.openUrl(value)
+        })
+
+      } else {
+        console.log(`${value} is not a supported url`);
+      }
+    });
+
   }
 
   @SDOnPiEvent('setupReady')

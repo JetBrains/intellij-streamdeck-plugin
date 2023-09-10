@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.jetbrains.ide.streamdeck"
-version = "2023.2.0"
+version = "2023.2.1"
 
 repositories {
   mavenCentral()
@@ -14,10 +14,12 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-  version.set("223.8214.52")
+//  version.set("223.8214.52")
+  version.set("232.8660.185")
+
   type.set("IU") // Target IDE Platform
 
-  plugins.set(listOf(/* Plugin Dependencies */))
+  plugins.set(listOf("org.intellij.plugins.markdown"))
 
   instrumentCode.set(false)
 }
