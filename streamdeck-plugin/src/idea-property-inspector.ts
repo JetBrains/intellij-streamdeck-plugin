@@ -97,8 +97,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     console.log('password =  ' + password + ", action=" + action + ", showTitle=" + showTitle)
     this.settingsManager.setGlobalSettings({ password, host, showTitle })
 
-    let elements: SelectElement[] = []
-
     switch (this.actionInfo.action) {
       case pluginName + '.custom': {
         break
@@ -106,9 +104,8 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     }
 
     this.setSettings({
-      selectOptions: elements,
-      behaviour: this.selectedBehaviour,
-      action: action
+      action: action,
+      showTitle
     })
     this.requestSettings() // requestSettings will add the options to the select element
 
@@ -123,7 +120,10 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     console.log('onUpdateTitleButtonPressed()')
 
     const showTitle = this.showTitleElement.checked ? "on" : "off"
-    this.settingsManager.setGlobalSettings({ showTitle })
+    // this.settingsManager.setGlobalSettings({ showTitle })
+    this.setSettings({
+      showTitle
+    })
 
     // this.sendToPlugin( { showTitle }, "updateTitle")
   }
@@ -138,8 +138,8 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     // this.showTitleElement.checked = true
 
     if (isGlobalSettingsSet(globalSettings)) {
-      const showTitle = globalSettings.showTitle
-      this.showTitleElement.checked = (showTitle === "on");
+      // const showTitle = globalSettings.showTitle
+      // this.showTitleElement.checked = (showTitle === "on");
 
       const password = globalSettings.password;
       if(password) {

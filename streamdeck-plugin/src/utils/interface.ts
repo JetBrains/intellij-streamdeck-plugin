@@ -9,6 +9,6 @@ export interface GlobalSettingsInterface {
 }
 
 export interface ActionSettingsInterface {
-  sceneId: string
-  action: string
+  action: string// Custom action ID
+  showTitle: string// Whether show action tip
 }

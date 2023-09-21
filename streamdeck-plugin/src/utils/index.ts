@@ -6,7 +6,8 @@ import {
 export function isGlobalSettingsSet(
   settings: GlobalSettingsInterface | unknown
 ): settings is GlobalSettingsInterface {
-  return (settings as GlobalSettingsInterface).showTitle !== undefined
+    const globalSettings = settings as GlobalSettingsInterface;
+    return globalSettings.host !== undefined || globalSettings.port !== undefined
 }
 
 interface FetchAPI {

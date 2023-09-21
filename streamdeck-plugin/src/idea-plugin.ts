@@ -10,6 +10,8 @@ import {StopWithDropDownAction} from "./actions/stop-action";
 import {PauseAction} from "./actions/pause-action";
 import {StepOutAction} from "./actions/step-out-action";
 import {ShowProjectStructureAction} from "./actions/project-structure-action";
+import {EmptyAction} from "./actions/empty-action";
+import {ActionIdBrowserAction} from "./actions/action-id-browser-action";
 
 export class IdeaPlugin extends StreamDeckPluginHandler {
   constructor() {
@@ -25,7 +27,8 @@ export class IdeaPlugin extends StreamDeckPluginHandler {
     new StopWithDropDownAction(this, 'com.jetbrains.idea.action.stop')
     new SearchEverywhereAction(this, 'com.jetbrains.idea.search.everywhere')
     new ShowProjectStructureAction(this, 'com.jetbrains.idea.action.show.project.structure')
-
+    new EmptyAction(this, 'com.jetbrains.idea.empty.action')
+    new ActionIdBrowserAction(this, 'com.jetbrains.idea.action.browser')
   }
 }
 

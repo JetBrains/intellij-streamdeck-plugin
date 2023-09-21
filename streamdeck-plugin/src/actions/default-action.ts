@@ -51,6 +51,10 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
         }
 
         if (action == null || action === '') {
+            if(this.context != null) {
+                this.plugin.showAlert(this.context);
+            }
+
             return
         }
 
@@ -137,6 +141,8 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
     @SDOnActionEvent('didReceiveSettings')
     private onSettings({context, payload: {settings}}: DidReceiveSettingsEvent<ActionSettingsInterface>) {
         console.log('onSettings() settings.action=' + settings.action)
+        console.log('onSettings() settings.showTitle=' + settings.showTitle)
+        this.showTitle = settings.showTitle;
         this.readCustomActionTitle(settings)
         this.toggleTitleVisible()
     }
@@ -150,10 +156,10 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
     @SDOnActionEvent('didReceiveGlobalSettings')
     private onReceiveGlobalSettings({payload: {settings}}: DidReceiveGlobalSettingsEvent<GlobalSettingsInterface>) {
         // this.plugin.setTitle(settings.count.toString() ?? 0, context);
-        console.log('onReceiveGlobalSettings() payload.showTitle=' + settings.showTitle)
-        this.showTitle = settings.showTitle;
+        // console.log('onReceiveGlobalSettings() payload.showTitle=' + settings.showTitle)
+        // this.showTitle = settings.showTitle;
 
         // console.log('onReceiveGlobalSettings() this.context=' + this.context)
-        this.toggleTitleVisible();
+        // this.toggleTitleVisible();
     }
 }
