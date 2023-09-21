@@ -624,7 +624,7 @@ public final class ActionsTree {
         append(boundText, GRAY_LINK, new SelectActionRunnable(boundId));
       }
 
-      if (actionId != null ) {// && UISettings.getInstance().getShowInplaceCommentsInternal()
+      if (actionId != null && !(userObject instanceof Group group) ) {// && UISettings.getInstance().getShowInplaceCommentsInternal()
         @NlsSafe String pluginName = myPluginNames.get(actionId);
         if (pluginName != null) {
           Group parentGroup = (Group)((DefaultMutableTreeNode)node.getParent()).getUserObject();

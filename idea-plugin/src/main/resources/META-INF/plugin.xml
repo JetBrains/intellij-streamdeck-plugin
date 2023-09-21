@@ -16,9 +16,9 @@
     <description><![CDATA[
      <h1> Stream Deck plugin for IntelliJ IDE</h1>
 A plugin for IntelliJ IDE that works as a backend action service for the companion Stream Deck plugin: IntelliJ IDE.<br>
-Meet the zero-config design, all plugin features work out of the box once you install this plugin and the paired
+Meet the zero-config design, all plugin features work out-of-the-box once you install this plugin and the paired
 <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin"
->Stream Deck plugin</a>(will also be available in Stream Deck Store soon).<br>
+>Stream Deck plugin</a>(it's also available in the <a href="https://apps.elgato.com/plugins/com.jetbrains.ide">Stream Deck Store</a>).<br>
 For the complete features list and usage guide, see the <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/README.md">
 Stream Deck Plugin documentation</a>.
   ]]></description>
@@ -34,6 +34,14 @@ Stream Deck Plugin documentation</a>.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <actions>
+        <action id="streamdeck.show.action.browser"
+                class="com.jetbrains.ide.streamdeck.action.OpenActionBrowserSettingsAction" text="Open Action Browser"
+                description="Open Action Browser to view and copy action id infos">
+            <add-to-group group-id="HelpMenu" anchor="last"/>
+        </action>
+    </actions>
+
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
@@ -42,7 +50,19 @@ Stream Deck Plugin documentation</a>.
                                  groupId="tools"
                                  displayName="Stream Deck"
                                  instance="com.jetbrains.ide.streamdeck.settings.ActionServerConfigurable"/>
+        <!-- Legacy  -->
+        <!--        <applicationConfigurable groupId="streamdeck.settings" groupWeight="131" instance="com.jetbrains.ide.streamdeck.customization.CustomizationConfigurable"-->
+        <!--                                 id="streamdeck.actionid.browser"-->
+        <!--                                 displayName="Action Id Browser"/>-->
+
+
+        <!-- Action Browser -->
+        <applicationConfigurable groupId="streamdeck.settings" groupWeight="65"
+                                 instance="com.jetbrains.ide.streamdeck.keymap.KeymapPanel"
+                                 id="streamdeck.action.browser" displayName="Action Id Browser"/>
+
         <applicationService serviceImplementation="com.jetbrains.ide.streamdeck.settings.ActionServerSettings"/>
         <httpRequestHandler implementation="com.jetbrains.ide.streamdeck.service.StreamDeckHttpService"/>
     </extensions>
+
 </idea-plugin>

@@ -1,5 +1,6 @@
 package com.jetbrains.ide.streamdeck.settings
 
+import com.intellij.ide.customize.transferSettings.models.PluginFeature
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.State
@@ -14,6 +15,8 @@ internal data class ActionServerSettings(
   var enable: Boolean = true,// Enable service or not
   var focusOnly: Boolean = true,// Perform actions only when IDE window is focused
 ) : PersistentStateComponent<ActionServerSettings> {
+
+  val KoreanLanguage: PluginFeature = PluginFeature("KO", "com.intellij.ko", "Korean Language Pack / 한국어 언어 팩")
 
   companion object {
     @JvmStatic
