@@ -37,7 +37,7 @@ tasks {
   }
 
   patchPluginXml {
-    sinceBuild.set("223")
+    sinceBuild.set("231") // Action Browser doesn't support 223
     untilBuild.set("233.*")
   }
 

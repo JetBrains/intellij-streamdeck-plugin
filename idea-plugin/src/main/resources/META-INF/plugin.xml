@@ -14,17 +14,19 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-     <h1> Stream Deck plugin for IntelliJ IDE</h1>
-A plugin for IntelliJ IDE that works as a backend action service for the companion Stream Deck plugin: IntelliJ IDE.<br>
+     <h1> Stream Deck plugin for IntelliJ IDE, now supports ALL actions</h1>
+A plugin for IntelliJ IDE that works as a backend action service for the companion Stream Deck plugin: <a href="https://apps.elgato.com/plugins/com.jetbrains.ide">IntelliJ IDE</a>.<br>
 Meet the zero-config design, all plugin features work out-of-the-box once you install this plugin and the paired
 <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin"
 >Stream Deck plugin</a>(it's also available in the <a href="https://apps.elgato.com/plugins/com.jetbrains.ide">Stream Deck Store</a>).<br>
 For the complete features list and usage guide, see the <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/README.md">
-Stream Deck Plugin documentation</a>.
+Stream Deck Plugin documentation</a>.<br>
+     Using the IDE menu <b>Help | Open Action Browser </b> to easily find and copy all supported action IDs including third-party plugins' actions.<br>
   ]]></description>
 
     <change-notes><![CDATA[
     2023.2.1<br>
+     - Now supports ALL actions including third-party plugins' actions, using the IDE menu <b>Help | Open Action Browser </b> to easily find and copy all supported action IDs.<br>
      - Support general Editor actions such as org.intellij.plugins.markdown.ui.actions.styling.ToggleBoldAction #10.<br>
     2023.2.0<br>
      - The initial release of the plugin.
