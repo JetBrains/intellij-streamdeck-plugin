@@ -8,43 +8,17 @@ also https://youtrack.jetbrains.com/issue/IDEA-280508/Support-for-Elgato-Stream-
 
 <!-- TOC -->
 * [Stream Deck Plugin for IntelliJ IDE](#stream-deck-plugin-for-intellij-ide)
-* [Features](#features)
 * [Quick Start](#quick-start)
   * [Prerequisites](#prerequisites)
   * [Install](#install)
   * [Configuration](#configuration)
+    * [Quick Search Action ID in IDE since IDE plugin 2023.2.1](#quick-search-action-id-in-ide-since-ide-plugin-202321)
+    * [In Stream Deck Store plugin](#in-stream-deck-store-plugin)
     * [in IDE Settings](#in-ide-settings)
-    * [in Stream Deck](#in-stream-deck)
+* [Features](#features)
 * [Contributing](#contributing)
 <!-- TOC -->
 
-# Features
-
-Once installed the both plugins, you'll able to using Stream Deck control up to 10 simultaneously running IDEs on your computer, the plugin
-will auto detect your current IDE window then react to the action.
-
-Below is a list of tested actions and their supported IDEs:
-
-|                   | IDEA, Android Studio | WebStorm, Rider, PyCharm etc |
-|-------------------|----------------------|------------------------------|
-| Update Project    | ✔                    | ✔                            |
-| New Project       | ✔                    |                              |
-| Project Structure | ✔                    |                              |
-| Run               | ✔                    | ✔                            |
-| Debug             | ✔                    | ✔                            |
-| Step Over         | ✔                    | ✔                            |
-| Step Out          | ✔                    | ✔                            |
-| Resume            | ✔                    | ✔                            |
-| Pause             | ✔                    | ✔                            |
-| Stop              | ✔                    | ✔                            |
-| Search Everywhere | ✔                    | ✔                            |
-
-> ## Limitations
->
-> You can try invoke any `Action ID` found in the
-> IDE's [Internal Mode | UI Inspector | Action](https://plugins.jetbrains.com/docs/intellij/internal-ui-inspector.html#action),
-> note that not every action will work, for example `Compare.SameVersion` will not work.
-> This plugin doesn't support Fleet.
 
 # Quick Start
 
@@ -68,6 +42,41 @@ Due to the limitation of Stream Deck software, only **Windows** and **macOS** is
 This plugin follows a zero-config design, so it works right out of the box. You can also change some
 configurations in the IDE's Settings page and Stream Deck's Action Settings page.
 
+
+### Quick Search Action ID in IDE since IDE plugin 2023.2.1
+Quick find action ids var menu **Help | Open Action Browser** : Open Action Browser to view and copy action id infos.
+![](screenshot/action_ids_browser.png)
+
+We also have a page of [IDEA Actions Page](IDEA_actions.md).
+
+### In Stream Deck Store plugin
+Click on the action and enter the following parameters:
+
+| Param name                     | Optional | Description                                                        |
+|--------------------------------|----------|--------------------------------------------------------------------|
+| Title Visible                  | N        | Toggle all buttons' title visibility                               |
+| Password for client connection | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
+| Host                           | Y        | Connect to a remote running IDE                                    |
+| Customize Action               | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
+
+**🆕New Built in Actions since 1.0.1:**
+
+**Open Action Browser** ： to view and copy action id in the IDE
+
+**Customized Action** : A placeholder action for run customized action id
+
+
+> ## Limitations
+> for IDEA plugin 2023.2.0 and Stream Deck Store Plugin 1.0.0
+>
+> You can try to invoke any `Action ID` found in the
+> IDE's [IDEA Actions Page](IDEA_actions.md),
+> note that not every action will work, for example `Compare.SameVersion` will not work.
+> Due to a bug but in Stream Deck Store Plugin 1.0.0, you must input host string 127.0.0.1
+> to make the customized action to work.
+> This plugin doesn't support Fleet.
+>
+
 ### in IDE Settings
 
 Please open it via the menu **File | Settings | Tools | Stream Deck**.
@@ -86,15 +95,27 @@ Please open it via the menu **File | Settings | Tools | Stream Deck**.
 >
 >
 
-### in Stream Deck
-Click on the action and enter the following parameters:
+# Features
 
-| Param name                     | Optional | Description                                                        |
-|--------------------------------|----------|--------------------------------------------------------------------|
-| Title Visible                  | N        | Toggle all buttons' title visibility                               |
-| Password for client connection | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
-| Host                           | Y        | Connect to a remote running IDE                                    |
-| Customize Action               | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
+Once installed the both plugins, you'll be able to using Stream Deck control up to 10 simultaneously running IDEs on your computer, the plugin
+will auto-detect your current IDE window then react to the action.
+
+Below is a list of tested actions and their supported IDEs:
+
+|                   | IDEA, Android Studio | WebStorm, Rider, PyCharm etc |
+|-------------------|----------------------|------------------------------|
+| Update Project    | ✔                    | ✔                            |
+| New Project       | ✔                    |                              |
+| Project Structure | ✔                    |                              |
+| Run               | ✔                    | ✔                            |
+| Debug             | ✔                    | ✔                            |
+| Step Over         | ✔                    | ✔                            |
+| Step Out          | ✔                    | ✔                            |
+| Resume            | ✔                    | ✔                            |
+| Pause             | ✔                    | ✔                            |
+| Stop              | ✔                    | ✔                            |
+| Search Everywhere | ✔                    | ✔                            |
+
 
 # Contributing
 Please see [CONTRIBUTING.md](CONTRIBUTING.md)
