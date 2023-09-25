@@ -24,6 +24,9 @@ also https://youtrack.jetbrains.com/issue/IDEA-280508/Support-for-Elgato-Stream-
 
 ## Prerequisites
 
+Before using this plugin, you can either install the free 
+[STREAM DECK MOBILE(subscription needed)](https://www.elgato.com/us/en/s/stream-deck-mobile) or buy a stream deck hardware.
+
 Install an IDE 2022.3+ if you don't have one from [Jetbrains](https://www.jetbrains.com)
 or [Android Studio](https://developer.android.com/sdk/installing/studio.html). This plugin supports all major Jetbrains
 IDEs include IDEA Community, IDEA Ultimate, WebStorm, Rider, Android Studio, PhpStorm, RubyMine, GoLand etc.
