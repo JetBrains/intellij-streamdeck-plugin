@@ -55,7 +55,7 @@ public final class ActionServer implements AutoCloseable {
             port = 21420;
         }
 
-        server = HttpServer.create(new InetSocketAddress(InetAddress.getByName(null), port), 5);
+        server = HttpServer.create(new InetSocketAddress(port), 5);
         server.createContext("/", new HandleHttpRequest());
 
         // Start the ActionServer on a separate thread from the rest of the framework
