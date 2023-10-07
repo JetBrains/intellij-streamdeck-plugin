@@ -50,9 +50,9 @@ internal class StreamDeckHttpService : RestService() {
   }
 
   private fun log(msg: String) {
-    val msg = defaultDateFormat.format(Calendar.getInstance().time) + msg + "\n"
-    print(msg)
-    serverLog.append(msg)
+    val message = defaultDateFormat.format(Calendar.getInstance().time) + msg + "\n"
+    print(message)
+    serverLog.append(message)
     fireServerStatusChanged()
   }
 
@@ -65,13 +65,15 @@ internal class StreamDeckHttpService : RestService() {
     val password = ActionServerSettings.getInstance().password
     if (StringUtil.isNotEmpty(password)) {
       if (password != passwordHeader) {
+        log("Bad password provided, abort")
         sendError("Bad password provided", request, context)
         return null
       }
     }
 
     // WelcomeScreen.CreateNewProject Run
-    val action = ActionManager.getInstance().getAction(actionId)
+    // JetBrains Gateway/JetBrains Client, the markdown action will be NULL!
+    val action = ActionManager.getInstance().getAction(actionId) ?: return null
     ActionExecutor.performAction(
       action, null,
       !ActionServerSettings.getInstance().focusOnly

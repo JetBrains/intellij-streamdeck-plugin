@@ -2,13 +2,11 @@ package com.jetbrains.ide.streamdeck;
 
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.components.Service;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
 import com.jetbrains.ide.streamdeck.settings.ActionServerSettings;
 import com.jetbrains.ide.streamdeck.util.ActionExecutor;
-import com.jetbrains.ide.streamdeck.util.ProjectUtil;
+import com.jetbrains.ide.streamdeck.util.LocalHostUtil;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -16,7 +14,6 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -26,27 +23,20 @@ import java.util.Objects;
 import java.util.concurrent.Executors;
 
 /**
- * A action server created to serve remote execute actions.
+ * An action server created to serve remote execute actions.
  */
-
-@Deprecated
-// @Service(Service.Level.APP)
-public final class ActionServer implements AutoCloseable {
+ @Service(Service.Level.APP)
+public final class RemoteActionServer implements AutoCloseable {
     private static SimpleDateFormat defaultDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS ");
 
-    public static ActionServer getInstance() {
-        return ApplicationManager.getApplication().getService(ActionServer.class);
+    public static RemoteActionServer getInstance() {
+        return ApplicationManager.getApplication().getService(RemoteActionServer.class);
     }
     private HttpServer server;
-
-
 
     private boolean started = false;
 
     private static StringBuffer serverLog = new StringBuffer();
-
-    public ActionServer() {
-    }
 
     public void start() throws IOException {
         ActionServerSettings myActionServerSettings = ActionServerSettings.getInstance();
@@ -65,13 +55,12 @@ public final class ActionServer implements AutoCloseable {
 
         started = true;
 
-        log("ActionServer listening on port " + server.getAddress().getPort());
-        System.out.println("ActionServer listening on port " + server.getAddress().getPort());
+        log("Stream Deck Remote Action Server listen on host " + String.join(",", LocalHostUtil.getLocalIPs()) + " port:" + server.getAddress().getPort());
+        System.out.println("RemoteActionServer listening on port " + server.getAddress().getPort());
     }
 
     private static void log(String msg) {
-        serverLog.append(defaultDateFormat.format(Calendar.getInstance().getTime())).append(
-                msg + "\n");
+        serverLog.append(defaultDateFormat.format(Calendar.getInstance().getTime())).append(msg).append("\n");
         ActionServerListener.fireServerStatusChanged();
     }
 
@@ -96,7 +85,7 @@ public final class ActionServer implements AutoCloseable {
     public void close() {
         server.stop(0);
         started = false;
-        log("Stopped StreamDeck ActionServer");
+        log("Stopped Stream Deck Remote Action Server");
     }
 
     static class HandleHttpRequest implements HttpHandler {
@@ -106,23 +95,25 @@ public final class ActionServer implements AutoCloseable {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            if(!ActionServerSettings.getInstance().getEnable()) return; // || !ActionServerSettings.getInstance().getEnableRemote()
+
             String path = exchange.getRequestURI().getPath();
-            log("ActionServer request received for " + path);
+            log("RemoteActionServer -> " + path);
             String password = ActionServerSettings.getInstance().getPassword();
 
             if(StringUtil.isNotEmpty(password)) {
                 Headers headers = exchange.getRequestHeaders();
-                String passwordHeader = headers.getFirst("auth");
+                String passwordHeader = headers.getFirst("Authorization");
                 if(!Objects.equals(password, passwordHeader)) {
                     respondWithString(exchange, "Bad password provided", "text/plain", 500);
                     return;
                 }
             }
 
-            // http://localhost:21420/action/Run
-            if (path.startsWith(("/action"))) {
-                String actionId = path.substring("/action".length() + 1);
-                if (actionId == null) {
+            // http://localhost:21420/api/action/Run
+            if (path.startsWith(("/api/action"))) {
+                String actionId = path.substring("/api/action".length() + 1);
+                if (actionId.isEmpty()) {
                     responseError(exchange);
                     return;
                 }
@@ -130,11 +121,17 @@ public final class ActionServer implements AutoCloseable {
                 System.out.println("actionId = " + actionId);
                 // WelcomeScreen.CreateNewProject Run
                 AnAction action = ActionManager.getInstance().getAction(actionId);
-                ActionExecutor.performAction(action, null,
-                        !ActionServerSettings.getInstance().getFocusOnly());
-                respondWithJson(exchange, "<status>ok</status>");
+                if (action == null) {
+                    System.out.println("action = null");
+                    respondWithJson(exchange, "<status>Action" + actionId + " not found</status>");
+                } else {
+                    ActionExecutor.performAction(action, null,
+                            !ActionServerSettings.getInstance().getFocusOnly());
+                    respondWithJson(exchange, "<status>ok</status>");
+                }
+            } else {
+                responseError(exchange);
             }
-            responseError(exchange);
         }
 
         void responseError(HttpExchange exchange) throws IOException {

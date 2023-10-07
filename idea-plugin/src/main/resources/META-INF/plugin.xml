@@ -25,6 +25,8 @@ Stream Deck Plugin documentation</a>.<br>
   ]]></description>
 
     <change-notes><![CDATA[
+    2023.2.2<br>
+    - Supports remote control the IDE action, not enabled by default(Note: doesn't support JetBrains Gateway/Client so far).
     2023.2.1<br>
      - Now supports ALL actions including third-party plugins' actions, using the IDE menu <b>Help | Open Action Browser </b> to easily find and copy all supported action IDs.<br>
      - Support general Editor actions such as org.intellij.plugins.markdown.ui.actions.styling.ToggleBoldAction #10.<br>
@@ -47,7 +49,7 @@ Stream Deck Plugin documentation</a>.<br>
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <!--    <applicationInitializedListener implementation="com.jetbrains.ide.streamdeck.BackendServiceLoader" />-->
+        <applicationInitializedListener implementation="com.jetbrains.ide.streamdeck.BackendServiceLoader" />
         <applicationConfigurable id="streamdeck.settings"
                                  groupId="tools"
                                  displayName="Stream Deck"

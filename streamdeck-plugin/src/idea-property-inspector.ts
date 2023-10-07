@@ -21,6 +21,7 @@ const pluginName = 'com.jetbrains.ide'
 class IdeaPI extends StreamDeckPropertyInspectorHandler {
   private selectedBehaviour = 'toggle'
   private hostElement: HTMLInputElement;
+  private portElement: HTMLInputElement;
   private passwordElement: HTMLInputElement;
   private actionElement: HTMLInputElement;
   private saveElement: HTMLButtonElement;
@@ -42,6 +43,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     // this.mainElement.style.display = 'initial';
 
     this.hostElement = document.getElementById('host') as HTMLInputElement;
+    this.portElement = document.getElementById('port') as HTMLInputElement;
     this.passwordElement = document.getElementById(
         'password'
     ) as HTMLInputElement;
@@ -92,10 +94,11 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
     const password = (<HTMLInputElement>document.getElementById('password'))?.value
     const host = this.hostElement?.value
+    const port = this.portElement?.value
     const action = this.actionElement.value
     const showTitle = this.showTitleElement.checked ? "on" : "off"
     console.log('password =  ' + password + ", action=" + action + ", showTitle=" + showTitle)
-    this.settingsManager.setGlobalSettings({ password, host, showTitle })
+    this.settingsManager.setGlobalSettings({ password, host, port })
 
     switch (this.actionInfo.action) {
       case pluginName + '.custom': {
@@ -149,6 +152,11 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
       const host = globalSettings.host;
       if(host) {
         this.hostElement.value = host;
+      }
+
+      const port = globalSettings.port;
+      if(port) {
+        this.portElement.value = port;
       }
     }
   }

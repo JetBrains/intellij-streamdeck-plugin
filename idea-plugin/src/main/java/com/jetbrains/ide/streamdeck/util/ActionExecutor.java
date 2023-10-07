@@ -29,22 +29,20 @@ import java.awt.event.InputEvent;
 
 public class ActionExecutor {
     public static void performAction(@NotNull AnAction action, @Nullable Component c, boolean allowCallInBackground) {
-        if (action != null) {
-            try {
-                // Execute in EDT
-                 ApplicationManager.getApplication().invokeLater(() -> {
-                     performActionFocusedProject(action, allowCallInBackground);
+        try {
+            // Execute in EDT
+            ApplicationManager.getApplication().invokeLater(() -> {
+                performActionFocusedProject(action, allowCallInBackground);
 //                     if(allowCallInBackground) {
 //                         performAction(action, null);
 //                     } else {
 //
 //                     }
-                 }, ModalityState.defaultModalityState());
+            }, ModalityState.defaultModalityState());
 //                performActionFocusedProject(action);
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -86,6 +84,7 @@ public class ActionExecutor {
 
     /**
      * Perform action in the IDE focused Editor.
+     * TODO Support JetBrains Gateway / Client
      *
      * @see com.intellij.ide.actions.GotoActionAction#openOptionOrPerformAction(Object, String, Project, Component, int)
      * @see com.intellij.openapi.keymap.impl.IdeKeyEventDispatcher#processAction(InputEvent, ActionProcessor)
@@ -93,18 +92,36 @@ public class ActionExecutor {
      * @param allowCallInBackground allow to perform action in non focused IDE window
      */
     public static void performActionFocusedProject(@NotNull AnAction action, boolean allowCallInBackground) {
+        System.out.println("ActionExecutor.performActionFocusedProject(allowCallInBackground = " + allowCallInBackground + ")");
         var focusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        IdeFocusManager ideFocusManager = ApplicationManager.getApplication().getService(IdeFocusManager.class);
 //        var focusOwner = focusManager.getFocusOwner();
-        var focusOwner = FocusManager.getCurrentManager().getFocusOwner();
+        // When there is no editor, the focusOwner is always null --> FocusManager.getCurrentManager().getFocusOwner()
+        var focusOwner = ideFocusManager.getFocusOwner();// FocusManager.getCurrentManager().getFocusOwner();
 
-        // No keyboard focused component
+        var focusedWindow = ideFocusManager.getLastFocusedIdeWindow();
+
+        if(focusedWindow != null && !focusedWindow.isFocused() && !allowCallInBackground) return;
+
+        System.out.println("FocusManager.getCurrentManager() = " + FocusManager.getCurrentManager());
+        System.out.println("focusManager = " + focusManager);
+        System.out.println("keyboard focusOwner = " + FocusManager.getCurrentManager().getFocusOwner());
+        System.out.println("ideFocusManager focusOwner = " + ideFocusManager.getFocusOwner());
+
+//        if(focusOwner == null) {
+//            IdeFrame ideFrame = ideFocusManager.getLastFocusedFrame();
+//            if(ideFrame != null) {
+//                focusOwner = ideFrame.getComponent();
+//            }
+//        }
+
+        // No focused component
         if(focusOwner == null && !allowCallInBackground) return;
 
         // Keymap shortcuts (i.e. not local shortcuts) should work only in:
         // - main frame
         // - floating focusedWindow
         // - when there's an editor in contexts
-        Window focusedWindow = focusManager.getFocusedWindow();
         // boolean isModalContext = focusedWindow != null && isModalContext(focusedWindow);
 
         Application app = ApplicationManager.getApplication();
@@ -113,17 +130,20 @@ public class ActionExecutor {
 
         FileEditor fileEditor = new FocusBasedCurrentEditorProvider().getCurrentEditor();
 
+        System.out.println("fileEditor=" + fileEditor);
+
         DataContext context = dataManager != null ? dataManager.getDataContext(focusOwner) : DataContext.EMPTY_CONTEXT;
 
-        if(fileEditor instanceof TextEditor && fileEditor.isValid() && dataManager != null) {
-            context = dataManager.getDataContext(fileEditor.getComponent());
-        }
+//        if(fileEditor instanceof TextEditor && fileEditor.isValid() && dataManager != null) {
+//            context = dataManager.getDataContext(fileEditor.getComponent());
+//        }
 
         DataContext wrappedContext = Utils.wrapDataContext(context);
         Project project = CommonDataKeys.PROJECT.getData(wrappedContext);
+        System.out.println("project=" + project);
         if (project != null && project.isDisposed()) return;
 
-        boolean dumb = project != null && DumbService.getInstance(project).isDumb();
+//        boolean dumb = project != null && DumbService.getInstance(project).isDumb();
 
         // Note: some action may produce exceptions if executed from the wrong focused component, eg:
         // GET http://localhost:63344/api/action/Vcs.ShowTabbedFileHistory requires a vcs file
@@ -141,8 +161,15 @@ public class ActionExecutor {
 
         );
         event.setInjectedContext(action.isInInjectedContext());
+
+        System.out.println("event=" + event);
         // Executed in EDT, so catch it
         try {
+            System.out.println("ActionUtil.lastUpdateAndCheckDumb(action, event, false)=" + ActionUtil.lastUpdateAndCheckDumb(action, event, false));
+
+            System.out.println("performActionDumbAwareWithCallbacks action =" + action);
+            ActionUtil.performActionDumbAwareWithCallbacks(action, event);
+
             if (ActionUtil.lastUpdateAndCheckDumb(action, event, false)) {
                 Window window;
                 if(focusOwner != null) {
@@ -150,15 +177,19 @@ public class ActionExecutor {
                 } else {
                     window = null;
                 }
-                ActionUtil.performDumbAwareWithCallbacks(action, event, () ->
-                        ActionUtil.doPerformActionOrShowPopup(action, event, popup -> {
-                            if (window != null) {
-                                popup.showInCenterOf(window);
-                            }
-                            else {
-                                popup.showInFocusCenter();
-                            }
-                        }));
+
+//                System.out.println("performActionDumbAwareWithCallbacks action =" + action);
+//                ActionUtil.performActionDumbAwareWithCallbacks(action, event);
+//                action.actionPerformed(event);
+//                ActionUtil.performDumbAwareWithCallbacks(action, event, () ->
+//                        ActionUtil.doPerformActionOrShowPopup(action, event, popup -> {
+//                            if (window != null) {
+//                                popup.showInCenterOf(window);
+//                            }
+//                            else {
+//                                popup.showInFocusCenter();
+//                            }
+//                        }));
             }
 //            action.actionPerformed(event);
         } catch (Exception e) {
