@@ -709,8 +709,13 @@ public final class KeymapPanel extends JPanel implements SearchableConfigurable,
       if (StringUtil.isNotEmpty(actionId)) {
         AnAction action = ActionManager.getInstance().getAction(actionId);
         if (action != null) {
-          String text = actionId + "," + action.getTemplateText() + "," + action.getClass().getCanonicalName() +","
-                  + KeymapUtil.getShortcutText(actionId);
+          /*
+          | ID | Action | Class | Shortcut |
+          |----|-------|------|------|
+          | A  | B      | C     | D        |
+           */
+          String text =  " | " + actionId + " | " + action.getTemplateText() + " | " + action.getClass().getCanonicalName() + " | "
+                  + KeymapUtil.getShortcutText(actionId) + " | ";
           Toolkit.getDefaultToolkit()
                   .getSystemClipboard()
                   .setContents(new StringSelection(text), null);
