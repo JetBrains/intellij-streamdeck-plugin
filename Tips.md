@@ -16,3 +16,4 @@
 |---------------------------|---------|-------|----------|
 | CloseContent | Close Tab | com.intellij.ide.actions.CloseAction | ⌘W |
 | NextTab | Select Next Tab | com.intellij.ide.actions.NextTabAction | ⇧⌘] |
+| OpenFile | 打开… | com.intellij.ide.actions.OpenFileAction | <no shortcut> | 
