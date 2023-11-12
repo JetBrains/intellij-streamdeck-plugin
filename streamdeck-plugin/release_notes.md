@@ -1,5 +1,4 @@
-1.0.1
+1.0.2
 
-- Add new action Open Action Browser(requires IDEA plugin 2023.2.1+);
-- Add new action Customized Action;
-- Fix various bugs.
+- Supports remote control of the IDE action, not enabled by default(requires IDEA plugin 2023.2.2+);
+- Fixed a bug that caused actions not to be performed when no editor was open in the IDE.<br>
