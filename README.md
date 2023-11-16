@@ -33,7 +33,7 @@ Due to the limitation of Stream Deck software, only **Windows** and **macOS** is
 
 ## Install
 
-1. Open https://apps.elgato.com/plugins/com.jetbrains.ide or search `JetBrains` from the Stream Deck Store to install
+1. Open https://marketplace.elgato.com/product/jetbrains-ide-f20a34c4-8965-4e21-8c6a-2454786d748b or search `JetBrains` from the Stream Deck Store to install
    Stream Deck plugin. You may also clone this repository then
    double-click `releases/com.jetbrains.ide.streamDeckPlugin` to install the latest plugin to Stream Deck desktop app
 2. Install plugin by search `Stream Deck` in at your IDE's **Settings / Preferences | Plugins** page or manually install
