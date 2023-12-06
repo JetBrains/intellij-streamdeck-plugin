@@ -11,6 +11,7 @@ import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.TextEditor;
+import com.intellij.openapi.fileEditor.impl.CurrentEditorProvider;
 import com.intellij.openapi.fileEditor.impl.FocusBasedCurrentEditorProvider;
 import com.intellij.openapi.keymap.impl.ActionProcessor;
 import com.intellij.openapi.project.DumbService;
@@ -26,6 +27,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.lang.reflect.Method;
 
 public class ActionExecutor {
     public static void performAction(@NotNull AnAction action, @Nullable Component c, boolean allowCallInBackground) {
@@ -128,10 +130,6 @@ public class ActionExecutor {
         DataManager dataManager = app == null ? null : app.getServiceIfCreated(DataManager.class);
         System.out.println("dataManager=" + dataManager);
 
-        FileEditor fileEditor = new FocusBasedCurrentEditorProvider().getCurrentEditor();
-
-        System.out.println("fileEditor=" + fileEditor);
-
         DataContext context = dataManager != null ? dataManager.getDataContext(focusOwner) : DataContext.EMPTY_CONTEXT;
 
 //        if(fileEditor instanceof TextEditor && fileEditor.isValid() && dataManager != null) {
@@ -142,6 +140,29 @@ public class ActionExecutor {
         Project project = CommonDataKeys.PROJECT.getData(wrappedContext);
         System.out.println("project=" + project);
         if (project != null && project.isDisposed()) return;
+
+        CurrentEditorProvider currentEditorProvider = ApplicationManager.getApplication().getService(CurrentEditorProvider.class);
+        FileEditor fileEditor = null;
+        try {
+            // Works for 2023.3 which has deprecated old API for `new FocusBasedCurrentEditorProvider().getCurrentEditor()`
+            Method currentEditor = CurrentEditorProvider.class.getDeclaredMethod("getCurrentEditor", Project.class);
+            fileEditor = (FileEditor) currentEditor.invoke(currentEditorProvider, project);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fileEditor = new FocusBasedCurrentEditorProvider().getCurrentEditor();
+        }
+
+        System.out.println("fileEditor=" + fileEditor);
+
+        if(fileEditor != null) {
+//            ActionToolbar actionToolbar = ActionToolbar.findToolbarBy(fileEditor.getComponent());
+//            try {
+//                System.out.println(actionToolbar.getActions());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+        }
+
 
 //        boolean dumb = project != null && DumbService.getInstance(project).isDumb();
 

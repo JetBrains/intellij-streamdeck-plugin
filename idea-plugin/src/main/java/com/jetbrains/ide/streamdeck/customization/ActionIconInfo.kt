@@ -69,22 +69,3 @@ internal fun getAvailableIcons(): List<ActionIconInfo> {
   }
 }
 
-internal fun getCustomIcons(schema: CustomActionsSchema): List<ActionIconInfo> {
-  val actionManager = ActionManager.getInstance()
-  return schema.getIconCustomizations().mapNotNull { (actionId, iconReference) ->
-    if (iconReference == null) {
-      return@mapNotNull null
-    }
-    val action = actionManager.getAction(iconReference)
-    if (action == null) {
-      try {
-        val icon = CustomActionsSchema.loadCustomIcon(iconReference)
-        ActionIconInfo(icon, iconReference.substringAfterLast("/"), actionId, iconReference)
-      }
-      catch (ex: IOException) {
-        null
-      }
-    }
-    else null
-  }
-}

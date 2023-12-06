@@ -1,11 +1,11 @@
 plugins {
   id("java")
   id("org.jetbrains.intellij") version "1.13.3"
-  id("org.jetbrains.kotlin.jvm") version "1.7.21"
+  id("org.jetbrains.kotlin.jvm") version "1.9.0"
 }
 
 group = "com.jetbrains.ide.streamdeck"
-version = "2023.2.2"
+version = "2023.3.1"
 
 repositories {
   mavenCentral()
@@ -15,11 +15,11 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
 //  version.set("223.8214.52")
-  version.set("232.9921.47")
+  version.set("233.11799.241")
 
-  type.set("IC") // Target IDE Platform
+  type.set("IU") // Target IDE Platform
 
-  plugins.set(listOf("org.intellij.plugins.markdown"))
+  plugins.set(listOf("org.intellij.plugins.markdown", "com.intellij.java"))
 
   instrumentCode.set(false)
 }
@@ -37,8 +37,8 @@ tasks {
   }
 
   patchPluginXml {
-    sinceBuild.set("231") // Action Browser doesn't support 223
-    untilBuild.set("233.*")
+    sinceBuild.set("233") // Action Browser doesn't support 223
+    untilBuild.set("241.*")
   }
 
   signPlugin {
@@ -49,6 +49,13 @@ tasks {
 
   publishPlugin {
     token.set(System.getenv("PUBLISH_TOKEN"))
+  }
+}
+
+tasks {
+  runIde {
+    // Enable Hot Reload
+    jvmArgs = listOf("-XX:+AllowEnhancedClassRedefinition -Dapple.laf.useScreenMenuBar=false -DjbScreenMenuBar.enabled=true")
   }
 }
 

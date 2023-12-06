@@ -6,6 +6,7 @@ import com.intellij.codeInsight.hint.HintUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.DefaultTreeExpander;
 import com.intellij.ide.ui.customization.*;
+import com.intellij.ide.ui.customization.CustomActionsSchemaKt;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.actionSystem.ex.QuickList;
 import com.intellij.openapi.actionSystem.impl.ActionToolbarImpl;
@@ -45,6 +46,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import static com.jetbrains.ide.streamdeck.customization.CustomActionsSchemaKt.loadCustomIcon;
+
 /**
  * Browse and copy action id, readonly view, disable drag and drop, paiting action id in highlight.
  * @see com.intellij.ide.ui.customization.CustomizableActionsPanel
@@ -59,7 +62,7 @@ public class CustomizableActionsPanel {
   public CustomizableActionsPanel() {
     //noinspection HardCodedStringLiteral
     @SuppressWarnings("DialogTitleCapitalization")
-    Group rootGroup = new Group("root", null, null);
+    Group rootGroup = new Group("root");
     final DefaultMutableTreeNode root = new DefaultMutableTreeNode(rootGroup);
     DefaultTreeModel model = new DefaultTreeModel(root);
     myActionsTree = new Tree(model){
@@ -410,15 +413,15 @@ public class CustomizableActionsPanel {
 
     AnAction reuseFrom = actionManager.getAction(path);
     if (reuseFrom != null) {
-      Icon toSet = CustomizationUtil.getOriginalIconFrom(reuseFrom);
-      Icon defaultIcon = CustomizationUtil.getOriginalIconFrom(action);
+      Icon toSet = CustomActionsSchemaKt.getOriginalIconFrom(reuseFrom);
+      Icon defaultIcon = CustomActionsSchemaKt.getOriginalIconFrom(action);
       node.setUserObject(Pair.create(value, toSet));
       schema.addIconCustomization(actionId, toSet != defaultIcon ? path : null);
     }
     else {
       Icon icon;
       try {
-        icon = CustomActionsSchema.loadCustomIcon(path);
+        icon = loadCustomIcon(path);
       }
       catch (Throwable t) {
         Logger.getInstance(CustomizableActionsPanel.class)
@@ -430,6 +433,8 @@ public class CustomizableActionsPanel {
     }
     return true;
   }
+
+
 
 
   private abstract class TreeSelectionAction extends DumbAwareAction {

@@ -12,6 +12,10 @@ import java.util.List;
  */
 public class LocalHostUtil {
 
+    public void foo() {
+
+    }
+
     public static String getLocalHostName() throws UnknownHostException {
         return InetAddress.getLocalHost().getHostName();
     }

@@ -66,7 +66,7 @@ public final class ActionsTree {
   private DefaultMutableTreeNode myRoot;
   private final JScrollPane myComponent;
   private Keymap myKeymap;
-  private Group myMainGroup = new Group("", null, null);
+  private Group myMainGroup = new Group("");
 
   @NonNls
   private static final String ROOT = "ROOT";
