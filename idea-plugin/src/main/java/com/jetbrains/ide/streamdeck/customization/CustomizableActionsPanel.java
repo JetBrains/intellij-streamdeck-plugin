@@ -165,7 +165,7 @@ public class CustomizableActionsPanel {
     ActionToolbarImpl toolbar = (ActionToolbarImpl)ActionManager.getInstance()
       .createActionToolbar(ActionPlaces.TOOLBAR, new DefaultActionGroup(new CopyActionIdAction()), true);
     toolbar.setForceMinimumSize(true);
-    toolbar.setLayoutPolicy(ActionToolbar.NOWRAP_LAYOUT_POLICY);
+//    toolbar.setLayoutPolicy(ActionToolbar.NOWRAP_LAYOUT_POLICY);
     toolbar.setTargetComponent(myTopPanel);
     return toolbar;
   }

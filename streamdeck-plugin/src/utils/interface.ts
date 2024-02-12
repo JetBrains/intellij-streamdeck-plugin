@@ -14,6 +14,7 @@ export interface GlobalSettingsInterface {
  * Per action button's config
  */
 export interface ActionSettingsInterface {
-  action: string// Custom action ID
-  showTitle: string// Whether show action tip
+  action: string // Custom action ID
+  showTitle: string // Whether show action tip
+  runConfig: string // Customized Run/Debug Configuration Name(Optional)
 }

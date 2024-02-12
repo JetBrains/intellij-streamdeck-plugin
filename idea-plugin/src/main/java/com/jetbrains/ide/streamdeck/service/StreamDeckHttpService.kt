@@ -3,10 +3,10 @@
 
 package com.jetbrains.ide.streamdeck.service
 
-import com.intellij.openapi.actionSystem.ActionManager
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.util.io.BufferExposingByteArrayOutputStream
 import com.intellij.openapi.util.text.StringUtil
-import com.intellij.util.io.isLocalOrigin
 import com.jetbrains.ide.streamdeck.ActionServerListener.Companion.fireServerStatusChanged
 import com.jetbrains.ide.streamdeck.settings.ActionServerSettings
 import com.jetbrains.ide.streamdeck.util.ActionExecutor
@@ -17,7 +17,6 @@ import io.netty.handler.codec.http.HttpRequest
 import io.netty.handler.codec.http.HttpResponseStatus
 import io.netty.handler.codec.http.QueryStringDecoder
 import org.jetbrains.ide.RestService
-import org.jetbrains.ide.writeApplicationInfoJson
 import org.jetbrains.io.response
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,7 +59,7 @@ internal class StreamDeckHttpService : RestService() {
     if(!ActionServerSettings.getInstance().enable) return null
     val byteOut = BufferExposingByteArrayOutputStream()
     log("stream deck req ${request.uri()}")
-    val actionId: String = request.uri().substring("/api/action/".length)
+    request.uri().substring("/api/action/".length)
     val passwordHeader = request.headers().getAsString("Authorization")
     val password = ActionServerSettings.getInstance().password
     if (StringUtil.isNotEmpty(password)) {
@@ -71,13 +70,8 @@ internal class StreamDeckHttpService : RestService() {
       }
     }
 
-    // WelcomeScreen.CreateNewProject Run
-    // JetBrains Gateway/JetBrains Client, the markdown action will be NULL!
-    val action = ActionManager.getInstance().getAction(actionId) ?: return null
-    ActionExecutor.performAction(
-      action, null,
-      !ActionServerSettings.getInstance().focusOnly
-    )
+    ActionExecutor.performActionUrl(request.uri(), !ActionServerSettings.getInstance().focusOnly)
+
     send(byteOut, request, context)
     return null
   }

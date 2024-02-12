@@ -13,7 +13,7 @@ import {
   ActionSettingsInterface,
 } from './utils/interface'
 
-const pluginName = 'com.jetbrains.ide'
+const pluginName = 'com.jetbrains.idea'
 
 /**
  * Load and save settings.
@@ -26,6 +26,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   private actionElement: HTMLInputElement;
   private saveElement: HTMLButtonElement;
   private showTitleElement: HTMLInputElement;
+  private runConfigurationNameElement: HTMLInputElement;
 
   constructor() {
     super()
@@ -33,10 +34,8 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
   @SDOnPiEvent('documentLoaded')
   onDocumentLoaded(): void {
-    console.log('onDocumentLoaded()')
-    const validateButton = document.getElementById('validate_button') as HTMLButtonElement
-    const selectLabel = document.getElementById('select_label') as HTMLSelectElement
-    const behaviour = document.getElementById('behaviour') as HTMLDivElement
+    console.log('onDocumentLoaded() ' + this.actionInfo.action)
+    const runConfig = document.getElementById('run_config') as HTMLDivElement
     // this.mainElement = document.getElementById(
     //     'mainSettings'
     // ) as HTMLElement;
@@ -49,18 +48,16 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     ) as HTMLInputElement;
     this.actionElement = document.getElementById('action') as HTMLInputElement;
     this.saveElement = document.getElementById('save') as HTMLButtonElement;
-    this.showTitleElement = document.getElementById(
-        'singlechk'
-    ) as HTMLInputElement;
+    this.showTitleElement = document.getElementById('singlechk') as HTMLInputElement;
+    this.runConfigurationNameElement = document.getElementById('run_config_name') as HTMLInputElement;
 
     this.saveElement?.addEventListener('click', this.onSaveButtonPressed.bind(this))
     this.showTitleElement?.addEventListener('click', this.onUpdateTitleButtonPressed.bind(this))
 
     switch (this.actionInfo.action) {
-      case pluginName + '.custom': {
-        selectLabel.textContent = 'Devices'
-        validateButton.textContent = 'Fetch devices list'
-        behaviour.className = 'sdpi-item' // Remove hidden class and display radio selection
+      case pluginName + '.run':
+      case pluginName + '.debug':{
+        runConfig.className = 'sdpi-item' // Remove hidden class and display run configuration name input box
         break
       }
     }
@@ -96,6 +93,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     const host = this.hostElement?.value
     const port = this.portElement?.value
     const action = this.actionElement.value
+    const runConfig = this.runConfigurationNameElement.value
     const showTitle = this.showTitleElement.checked ? "on" : "off"
     console.log('password =  ' + password + ", action=" + action + ", showTitle=" + showTitle)
     this.settingsManager.setGlobalSettings({ password, host, port })
@@ -108,7 +106,8 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
     this.setSettings({
       action: action,
-      showTitle
+      showTitle,
+      runConfig
     })
     this.requestSettings() // requestSettings will add the options to the select element
 
@@ -160,15 +159,17 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
       }
     }
   }
+
+  // Update per button settings
   @SDOnPiEvent('didReceiveSettings')
   onReceiveSettings({
     payload,
   }: DidReceiveSettingsEvent<ActionSettingsInterface>): void {
-    const select = document.getElementById('select_value') as HTMLSelectElement
     console.log("onReceiveSettings()")
     console.debug(payload.settings)
 
     this.actionElement.value = payload.settings.action ?? "";
+    this.runConfigurationNameElement.value = payload.settings.runConfig ?? "";
   }
 }
 

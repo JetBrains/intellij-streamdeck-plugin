@@ -1,5 +1,5 @@
 #!/bin/sh
-
+path=$path:/opt/homebrew/bin/
 echo 'Killing the Stream Deck process'
 
 if [[ "$OSTYPE" == "msys" ]]; then

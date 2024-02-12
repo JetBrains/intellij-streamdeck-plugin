@@ -44,6 +44,7 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
     public async onKeyUp({payload}: KeyUpEvent<ActionSettingsInterface>): Promise<void> {
         console.log('onKeyUp() actionId=' + this.actionId())
         let action = payload.settings.action // current button's customized action ID
+        let runConfig = payload.settings.runConfig
         console.log('onKeyUp() customAction=' + action)
 
         if (action == null || action === '') {
@@ -77,8 +78,20 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
             port = settings.port
         }
 
+        // Handle customized run/debug configuration
+        let endpoint = `/api/action/${action}`;
+
+        if (runConfig == null || runConfig === undefined) {
+            runConfig = ''
+        }
+
+        console.log('runConfig=' + runConfig)
+        if(runConfig !== '') {
+            endpoint += '?name=' + encodeURIComponent(runConfig)
+        }
+
         await fetchJetBrainsIDE({
-            endpoint: `/api/action/${action}`,
+            endpoint: endpoint,
             port: port,
             password: password,
             accessToken: '',

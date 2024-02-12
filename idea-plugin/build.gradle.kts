@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.jetbrains.ide.streamdeck"
-version = "2023.3.1"
+version = "2023.3.2"
 
 repositories {
   mavenCentral()
@@ -15,7 +15,7 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
 //  version.set("223.8214.52")
-  version.set("233.11799.241")
+  version.set("233.13135.103")
 
   type.set("IU") // Target IDE Platform
 

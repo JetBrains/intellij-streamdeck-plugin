@@ -97,8 +97,7 @@ public final class RemoteActionServer implements AutoCloseable {
         public void handle(HttpExchange exchange) throws IOException {
             if(!ActionServerSettings.getInstance().getEnable()) return; // || !ActionServerSettings.getInstance().getEnableRemote()
 
-            String path = exchange.getRequestURI().getPath();
-            log("RemoteActionServer -> " + path);
+            log("RemoteActionServer -> " + exchange.getRequestURI().toString());
             String password = ActionServerSettings.getInstance().getPassword();
 
             if(StringUtil.isNotEmpty(password)) {
@@ -111,27 +110,9 @@ public final class RemoteActionServer implements AutoCloseable {
             }
 
             // http://localhost:21420/api/action/Run
-            if (path.startsWith(("/api/action"))) {
-                String actionId = path.substring("/api/action".length() + 1);
-                if (actionId.isEmpty()) {
-                    responseError(exchange);
-                    return;
-                }
-
-                System.out.println("actionId = " + actionId);
-                // WelcomeScreen.CreateNewProject Run
-                AnAction action = ActionManager.getInstance().getAction(actionId);
-                if (action == null) {
-                    System.out.println("action = null");
-                    respondWithJson(exchange, "<status>Action" + actionId + " not found</status>");
-                } else {
-                    ActionExecutor.performAction(action, null,
-                            !ActionServerSettings.getInstance().getFocusOnly());
-                    respondWithJson(exchange, "<status>ok</status>");
-                }
-            } else {
-                responseError(exchange);
-            }
+            ActionExecutor.performActionUrl(exchange.getRequestURI().toString(),
+                    !ActionServerSettings.getInstance().getFocusOnly());
+            respondWithJson(exchange, "<status>ok</status>");
         }
 
         void responseError(HttpExchange exchange) throws IOException {

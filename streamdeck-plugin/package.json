@@ -1,7 +1,7 @@
 {
   "name": "streamdeck-plugin-idea",
   "version": "1.0.0",
-  "description": "Streamdeck plugin for JetBrains IDE",
+  "description": "Stream Deck plugin for JetBrains IDE",
   "repository": "https://github.com/jetbrains/streamdeck-idea-plugin",
   "scripts": {
     "browserify": "browserify build/idea-property-inspector.js > com.jetbrains.ide.sdPlugin/public/dist/idea-property-inspector-bundle.js && browserify build/idea-plugin.js > com.jetbrains.ide.sdPlugin/public/dist/idea-plugin-bundle.js",

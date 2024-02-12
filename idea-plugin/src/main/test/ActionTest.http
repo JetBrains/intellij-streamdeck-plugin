@@ -2,6 +2,17 @@
 #GET http://localhost:21420/action/NewProject
 #auth: pwd
 
+### Remote Call Run Main
+GET http://localhost:21420/api/action/Run?name=Main
+Accept: application/json
+
+### Remote Call Debug Main
+GET http://localhost:21420/api/action/Debug?name=Main
+Accept: application/json
+
+### For built-in Server test
+GET http://localhost:63344/api/action/Run?mode=Run&name=Main
+Accept: application/json
 
 ### For built-in Server test
 GET http://localhost:63343/api/action/NewProject

@@ -1,4 +1,3 @@
-1.0.2
+1.0.3
 
-- Supports remote control of the IDE action, not enabled by default(requires IDEA plugin 2023.2.2+);
-- Fixed a bug that caused actions not to be performed when no editor was open in the IDE.<br>
+- Allow specific run configuration by name in the Stream Deck Run Action , not enabled by default(requires IDEA plugin 2023.3.2+);
