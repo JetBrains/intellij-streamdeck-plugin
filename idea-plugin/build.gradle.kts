@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
   id("java")
   id("org.jetbrains.intellij") version "1.13.3"
@@ -7,9 +9,7 @@ plugins {
 group = "com.jetbrains.ide.streamdeck"
 version = "2023.3.2"
 
-repositories {
-  mavenCentral()
-}
+
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
@@ -34,6 +34,10 @@ tasks {
   withType<JavaCompile> {
     sourceCompatibility = "17"
     targetCompatibility = "17"
+    options.encoding = "UTF-8"
+  }
+  withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "17"
   }
 
   patchPluginXml {
@@ -62,4 +66,22 @@ tasks {
 // https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin-faq.html#how-to-disable-building-searchable-options
 tasks.buildSearchableOptions {
   enabled = false
+}
+
+buildscript {
+  repositories {
+//        mavenCentral()
+    maven(url ="https://maven.aliyun.com/repository/public" )
+    google()
+  }
+}
+
+// Configure project's dependencies
+repositories {
+  maven(url = "https://maven.aliyun.com/repository/public")
+//    mavenCentral()
+  maven(url = "https://www.jetbrains.com/intellij-repository/releases")
+  maven(url = "https://www.jetbrains.com/intellij-repository/snapshots")
+  maven(url = "https://maven-central.storage-download.googleapis.com/repos/central/data/")
+  maven(url = "https://repo.eclipse.org/content/groups/releases/")
 }
