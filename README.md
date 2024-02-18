@@ -59,15 +59,18 @@ We also have a page of [IDEA Actions Page](IDEA_actions.md).
 
 Click on the action and enter the following parameters:
 
-| Param name                     | Optional | Description                                                        |
-|--------------------------------|----------|--------------------------------------------------------------------|
-| Title Visible                  | N        | Toggle all buttons' title visibility                               |
-| Password for client connection | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
-| Host                           | Y        | Connect to a remote running IDE, default to localhost              |
-| Remote Port                    | Y        | Connect to a remote running IDE port                               |
-| Customize Action               | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
+| Param name                             | Optional | Description                                                        |
+|----------------------------------------|----------|--------------------------------------------------------------------|
+| Title Visible                          | N        | Toggle all buttons' title visibility                               |
+| Password for client connection         | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
+| Host                                   | Y        | Connect to a remote running IDE, default to localhost              |
+| Remote Port                            | Y        | Connect to a remote running IDE port                               |
+| Customize Action                       | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
+| Run/Debug Configuration Name(Optional) | Y        | The Run/Debug Configuration to be used in the IDE                  |
 
-**🆕New Built in Actions since 1.0.1:**
+**🆕New Built in Actions since 1.0.3:**
+
+**Run / Debug**: Allow specific run/debug configuration by name.
 
 **Open Action Browser** ： to view and copy action id in the IDE
 
