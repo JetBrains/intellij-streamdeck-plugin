@@ -1,23 +1,26 @@
+/*
+ * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   id("java")
-  id("org.jetbrains.intellij") version "1.13.3"
+  id("org.jetbrains.intellij") version "1.17.2"
   id("org.jetbrains.kotlin.jvm") version "1.9.0"
 }
 
 group = "com.jetbrains.ide.streamdeck"
-version = "2023.3.2"
-
-
+version = "2024.1.0"
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
 //  version.set("223.8214.52")
-  version.set("233.13135.103")
+  // 241-EAP-SNAPSHOT
+  version.set("241-EAP-SNAPSHOT")
 
-  type.set("IU") // Target IDE Platform
+  type.set("IC") // Target IDE Platform
 
   plugins.set(listOf("org.intellij.plugins.markdown", "com.intellij.java"))
 
@@ -41,7 +44,7 @@ tasks {
   }
 
   patchPluginXml {
-    sinceBuild.set("233") // Action Browser doesn't support 223
+    sinceBuild.set("241") // Action Browser doesn't support 223
     untilBuild.set("241.*")
   }
 

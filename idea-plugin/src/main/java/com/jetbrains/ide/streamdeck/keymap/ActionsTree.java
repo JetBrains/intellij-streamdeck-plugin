@@ -1,4 +1,6 @@
-// Copyright 2000-2022 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+/*
+ * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
 package com.jetbrains.ide.streamdeck.keymap;
 
 import com.intellij.icons.AllIcons;
@@ -11,6 +13,7 @@ import com.intellij.internal.inspector.PropertyBean;
 import com.intellij.internal.inspector.UiInspectorTreeRendererContextProvider;
 import com.intellij.internal.inspector.UiInspectorUtil;
 import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.ex.ActionManagerEx;
 import com.intellij.openapi.actionSystem.ex.QuickList;
 import com.intellij.openapi.actionSystem.impl.ActionMenu;
 import com.intellij.openapi.diagnostic.Logger;
@@ -370,7 +373,7 @@ public final class ActionsTree {
 
   public void selectAction(String actionId) {
     String path = myMainGroup.getActionQualifiedPath(actionId, false);
-    String boundId = path == null ? KeymapManagerEx.getInstanceEx().getActionBinding(actionId) : null;
+    String boundId = path == null ? ActionManagerEx.getInstanceEx().getActionBinding(actionId) : null;
     if (path == null && boundId != null) {
       path = myMainGroup.getActionQualifiedPath(boundId, false);
       if (path == null) {
@@ -556,7 +559,7 @@ public final class ActionsTree {
       }
       else if (userObject instanceof String) {
         actionId = (String)userObject;
-        boundId = ((KeymapImpl)myKeymap).hasShortcutDefined(actionId) ? null : KeymapManagerEx.getInstanceEx().getActionBinding(actionId);
+        boundId = ((KeymapImpl)myKeymap).hasShortcutDefined(actionId) ? null : ActionManagerEx.getInstanceEx().getActionBinding(actionId);
         AnAction action = ActionManager.getInstance().getAction(actionId);
         text = getActionText(action, actionId, null);
         if (action != null) {

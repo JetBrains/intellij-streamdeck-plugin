@@ -1,4 +1,6 @@
-// Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+/*
+ * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
 package com.jetbrains.ide.streamdeck.keymap;
 
 import com.intellij.codeInsight.hint.HintManager;
@@ -155,7 +157,7 @@ public final class KeymapPanel extends JPanel implements SearchableConfigurable,
 
   private static void addShortcut(Keymap keymap, String actionId, Shortcut shortcut) {
     if (keymap instanceof KeymapImpl) {
-      ((KeymapImpl)keymap).addShortcut(actionId, shortcut, true);
+      ((KeymapImpl)keymap).addShortcut(actionId, shortcut);
     }
     else {
       keymap.addShortcut(actionId, shortcut);
@@ -164,7 +166,7 @@ public final class KeymapPanel extends JPanel implements SearchableConfigurable,
 
   private static void removeShortcut(Keymap keymap, String actionId, Shortcut shortcut) {
     if (keymap instanceof KeymapImpl) {
-      ((KeymapImpl)keymap).removeShortcut(actionId, shortcut, true);
+      ((KeymapImpl)keymap).removeShortcut(actionId, shortcut);
     }
     else {
       keymap.removeShortcut(actionId, shortcut);
