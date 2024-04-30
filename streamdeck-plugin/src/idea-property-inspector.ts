@@ -4,10 +4,8 @@ import {
   DidReceiveSettingsEvent,
 } from 'streamdeck-typescript'
 import {
-  isGlobalSettingsSet,
-  fetchApi,
-  SelectElement,
-} from './utils/index'
+  isGlobalSettingsSet
+} from './utils'
 import {
   GlobalSettingsInterface,
   ActionSettingsInterface,
@@ -19,7 +17,6 @@ const pluginName = 'com.jetbrains.idea'
  * Load and save settings.
  */
 class IdeaPI extends StreamDeckPropertyInspectorHandler {
-  private selectedBehaviour = 'toggle'
   private hostElement: HTMLInputElement;
   private portElement: HTMLInputElement;
   private passwordElement: HTMLInputElement;
