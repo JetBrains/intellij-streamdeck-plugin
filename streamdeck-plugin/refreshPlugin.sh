@@ -5,7 +5,7 @@ echo 'Killing the Stream Deck process'
 if [[ "$OSTYPE" == "msys" ]]; then
   taskkill //IM "StreamDeck.exe" //F
 else
-  pkill 'Elgato Stream Deck'
+  pkill 'Stream Deck'
 fi
 
 pluginName='com.jetbrains.ide'
@@ -46,6 +46,6 @@ echo "Done installing ${pluginName}"
 if [[ "$OSTYPE" == "msys" ]]; then
   "C:\Program Files\Elgato\StreamDeck\StreamDeck.exe" &
 else
-  open /Applications/Elgato\ Stream\ Deck.app &
+  open -a Elgato\ Stream\ Deck
 fi
 exit

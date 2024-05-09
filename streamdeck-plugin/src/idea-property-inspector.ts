@@ -4,10 +4,8 @@ import {
   DidReceiveSettingsEvent,
 } from 'streamdeck-typescript'
 import {
-  isGlobalSettingsSet,
-  fetchApi,
-  SelectElement,
-} from './utils/index'
+  isGlobalSettingsSet
+} from './utils'
 import {
   GlobalSettingsInterface,
   ActionSettingsInterface,
@@ -19,7 +17,6 @@ const pluginName = 'com.jetbrains.idea'
  * Load and save settings.
  */
 class IdeaPI extends StreamDeckPropertyInspectorHandler {
-  private selectedBehaviour = 'toggle'
   private hostElement: HTMLInputElement;
   private portElement: HTMLInputElement;
   private passwordElement: HTMLInputElement;
@@ -34,22 +31,13 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
   @SDOnPiEvent('documentLoaded')
   onDocumentLoaded(): void {
-    console.log('onDocumentLoaded() ' + this.actionInfo.action)
+    this.logMessage('onDocumentLoaded() ' + this.actionInfo.action)
+
     const runConfig = document.getElementById('run_config') as HTMLDivElement
     // this.mainElement = document.getElementById(
     //     'mainSettings'
     // ) as HTMLElement;
     // this.mainElement.style.display = 'initial';
-
-    this.hostElement = document.getElementById('host') as HTMLInputElement;
-    this.portElement = document.getElementById('port') as HTMLInputElement;
-    this.passwordElement = document.getElementById(
-        'password'
-    ) as HTMLInputElement;
-    this.actionElement = document.getElementById('action') as HTMLInputElement;
-    this.saveElement = document.getElementById('save') as HTMLButtonElement;
-    this.showTitleElement = document.getElementById('singlechk') as HTMLInputElement;
-    this.runConfigurationNameElement = document.getElementById('run_config_name') as HTMLInputElement;
 
     this.saveElement?.addEventListener('click', this.onSaveButtonPressed.bind(this))
     this.showTitleElement?.addEventListener('click', this.onUpdateTitleButtonPressed.bind(this))
@@ -71,7 +59,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
         })
 
       } else {
-        console.log(`${value} is not a supported url`);
+        this.logMessage(`${value} is not a supported url`);
       }
     });
 
@@ -82,12 +70,24 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
   }
 
+  private initElements() {
+    this.hostElement = document.getElementById('host') as HTMLInputElement;
+    this.portElement = document.getElementById('port') as HTMLInputElement;
+    this.passwordElement = document.getElementById(
+        'password'
+    ) as HTMLInputElement;
+    this.actionElement = document.getElementById('action') as HTMLInputElement;
+    this.saveElement = document.getElementById('save') as HTMLButtonElement;
+    this.showTitleElement = document.getElementById('singlechk') as HTMLInputElement;
+    this.runConfigurationNameElement = document.getElementById('run_config_name') as HTMLInputElement;
+  }
+
   /**
    * Save global settings and customized action ID settings
    * @private
    */
   private async onSaveButtonPressed() {
-    console.log('onValidateButtonPressed()')
+    this.logMessage('onValidateButtonPressed()')
 
     const password = (<HTMLInputElement>document.getElementById('password'))?.value
     const host = this.hostElement?.value
@@ -95,7 +95,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     const action = this.actionElement.value
     const runConfig = this.runConfigurationNameElement.value
     const showTitle = this.showTitleElement.checked ? "on" : "off"
-    console.log('password =  ' + password + ", action=" + action + ", showTitle=" + showTitle)
+    this.logMessage("action=" + action + ", showTitle=" + showTitle)
     this.settingsManager.setGlobalSettings({ password, host, port })
 
     switch (this.actionInfo.action) {
@@ -119,7 +119,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
    * @private
    */
   private async onUpdateTitleButtonPressed() {
-    console.log('onUpdateTitleButtonPressed()')
+    this.logMessage('onUpdateTitleButtonPressed()')
 
     const showTitle = this.showTitleElement.checked ? "on" : "off"
     // this.settingsManager.setGlobalSettings({ showTitle })
@@ -133,10 +133,10 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   // Prefill PI elements from cache
   @SDOnPiEvent('globalSettingsAvailable')
   propertyInspectorDidAppear(): void {
-    console.log('propertyInspectorDidAppear()')
+    this.logMessage('propertyInspectorDidAppear()')
+    this.initElements();
     this.requestSettings()
     const globalSettings = this.settingsManager.getGlobalSettings<GlobalSettingsInterface>()
-
     // this.showTitleElement.checked = true
 
     if (isGlobalSettingsSet(globalSettings)) {
@@ -145,7 +145,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
       const password = globalSettings.password;
       if(password) {
-        console.log(`password=${password}`)
         this.passwordElement.value = password;
       }
       const host = globalSettings.host;
@@ -163,9 +162,9 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   // Update per button settings
   @SDOnPiEvent('didReceiveSettings')
   onReceiveSettings({
-    payload,
-  }: DidReceiveSettingsEvent<ActionSettingsInterface>): void {
-    console.log("onReceiveSettings()")
+                      payload,
+                    }: DidReceiveSettingsEvent<ActionSettingsInterface>): void {
+    this.logMessage("onReceiveSettings()")
     console.debug(payload.settings)
 
     this.actionElement.value = payload.settings.action ?? "";
