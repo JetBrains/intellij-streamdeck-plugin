@@ -17,10 +17,10 @@ version = "2024.1.0"
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
 //  version.set("223.8214.52")
-  // 241-EAP-SNAPSHOT
-  version.set("241-EAP-SNAPSHOT")
+  // 241-EAP-SNAPSHOT 241-EAP-CANDIDATE-SNAPSHOT
+  version.set("241.14494.240")
 
-  type.set("IC") // Target IDE Platform
+  type.set("IU") // Target IDE Platform
 
   plugins.set(listOf("org.intellij.plugins.markdown", "com.intellij.java"))
 
