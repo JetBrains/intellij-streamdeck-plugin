@@ -11,14 +11,15 @@ plugins {
 }
 
 group = "com.jetbrains.ide.streamdeck"
-version = "2024.1.0"
+version = "2024.2 EAP"
 
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
 //  version.set("223.8214.52")
   // 241-EAP-SNAPSHOT 241-EAP-CANDIDATE-SNAPSHOT
-  version.set("241.14494.240")
+//  version.set("241.14494.240")
+  version.set("242-EAP-SNAPSHOT")
 
   type.set("IU") // Target IDE Platform
 

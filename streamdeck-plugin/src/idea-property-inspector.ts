@@ -1,3 +1,7 @@
+/*
+ * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
+
 import {
   SDOnPiEvent,
   StreamDeckPropertyInspectorHandler,
@@ -165,10 +169,17 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
                       payload,
                     }: DidReceiveSettingsEvent<ActionSettingsInterface>): void {
     this.logMessage("onReceiveSettings()")
-    console.debug(payload.settings)
+    this.logMessage("payload.settings=" + JSON.stringify(payload.settings))
+    this.logMessage("this.actionElement=" + this.actionElement)
 
-    this.actionElement.value = payload.settings.action ?? "";
-    this.runConfigurationNameElement.value = payload.settings.runConfig ?? "";
+    // This method will be called two times, the first time actionElement is undefined
+    if(this.actionElement) {
+      this.actionElement.value = payload.settings.action ?? "";
+    }
+
+    if(this.runConfigurationNameElement) {
+      this.runConfigurationNameElement.value = payload.settings.runConfig ?? "";
+    }
   }
 }
 

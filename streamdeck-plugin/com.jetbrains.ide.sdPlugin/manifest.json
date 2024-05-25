@@ -1,4 +1,28 @@
 {
+  "SDKVersion": 2,
+  "Author": "Jacky Liu",
+  "Category": "JetBrains IDE",
+  "CategoryIcon": "icons/category/idea",
+  "CodePath": "public/plugin.html",
+  "PropertyInspectorPath": "public/property-inspector.html",
+  "Description": "Enables Stream Deck integration with JetBrains IDEs such as IDEA, Rider, WebStorm, Android Studio etc. This plugin requires JetBrains IDE plugin Stream Deck installed.",
+  "Name": "JetBrains IDE",
+  "Icon": "icons/idea",
+  "URL": "https://github.com/JetBrains/intellij-streamdeck-plugin",
+  "Version": "1.0.4",
+  "OS": [
+    {
+      "Platform": "mac",
+      "MinimumVersion": "10.11"
+    },
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    }
+  ],
+  "Software": {
+    "MinimumVersion": "5.0"
+  },
   "Actions": [
     {
       "Icon": "icons/actions/web@20x20_dark",
@@ -152,29 +176,6 @@
       "SupportedInMultiActions": true,
       "UUID": "com.jetbrains.idea.action.show.project.structure"
     }
-  ],
-  "SDKVersion": 2,
-  "Author": "Jacky Liu",
-  "Category": "JetBrains IDE",
-  "CategoryIcon": "icons/category/idea",
-  "CodePath": "public/plugin.html",
-  "PropertyInspectorPath": "public/property-inspector.html",
-  "Description": "Enables Stream Deck integration with JetBrains IDEs such as IDEA, Rider, WebStorm, Android Studio etc. This plugin requires JetBrains IDE plugin Stream Deck installed.",
-  "Name": "JetBrains IDE",
-  "Icon": "icons/idea",
-  "URL": "https://github.com/JetBrains/intellij-streamdeck-plugin",
-  "Version": "1.0.3",
-  "OS": [
-    {
-      "Platform": "mac",
-      "MinimumVersion": "10.11"
-    },
-    {
-      "Platform": "windows",
-      "MinimumVersion": "10"
-    }
-  ],
-  "Software": {
-    "MinimumVersion": "5.0"
-  }
+  ]
+
 }
