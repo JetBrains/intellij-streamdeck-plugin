@@ -46,7 +46,7 @@ tasks {
 
   patchPluginXml {
     sinceBuild.set("241") // Action Browser doesn't support 223
-    untilBuild.set("241.*")
+    untilBuild.set("242.*")
   }
 
   signPlugin {

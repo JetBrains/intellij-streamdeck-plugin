@@ -35,12 +35,17 @@ For some useful action IDs, such as toggling the visibility of the tool window, 
 <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/Tips.md">Tips</a>.<br>
 Note: this plugin doesn't support Gateway/JetBrains Client so far.<br>
 Tips for none supported action so far such as
-<b>NextDiff</b>: You can always use the Stream Deck App's built-in action HotKey as a workaround.
+<b>NextDiff</b>: You can always use the Stream Deck App's built-in action HotKey as a workaround.<br><br>
+🆕FYI: A community member has made a Stream Deck IntelliJ Icons pack, get it here:
+ <a href="https://git.steffann.nl/sander/streamdeck-intellij-icons/-/tree/main/nl.steffann.streamdeck.jetbrains.icons.sdIconPack">
+ https://git.steffann.nl/sander/streamdeck-intellij-icons/-/tree/main/nl.steffann.streamdeck.jetbrains.icons.sdIconPack</a>.
   ]]></description>
 
     <change-notes><![CDATA[
+    2024.2 EAP<br>
+    - Supports IDEs 2024.2 EAP.<br>
     2024.1.0<br>
-    - Supports IDEs 2024.1 Beta.<br>
+    - Supports IDEs 2024.1.<br>
     2023.3.2<br>
     - 🆕New: Allow specific run configuration by name in the Stream Deck App's Run Action, please update to the latest
      <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin"
