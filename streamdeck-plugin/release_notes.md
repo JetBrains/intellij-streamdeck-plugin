@@ -1,3 +1,3 @@
-1.0.3
+1.0.4
 
-- Allow specific run configuration by name in the Stream Deck Run Action , not enabled by default(requires IDEA plugin 2023.3.2+);
+- Updating element discovery to fix loading on macOS
