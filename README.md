@@ -55,6 +55,10 @@ Quick find action ids var menu **Help | Open Action Browser** : Open Action Brow
 
 We also have a page of [IDEA Actions Page](IDEA_actions.md).
 
+### Action Icon Lookup
+
+To find the corresponding action icon, use the Action ID to locate it on our [IntelliJ Icon Collection](https://intellij-icons.jetbrains.design/).
+
 ### In Stream Deck Store plugin
 
 Click on the action and enter the following parameters:
