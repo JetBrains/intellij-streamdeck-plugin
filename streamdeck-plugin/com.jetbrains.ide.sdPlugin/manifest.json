@@ -109,6 +109,18 @@
       "UUID": "com.jetbrains.idea.step.over"
     },
     {
+      "Icon": "icons/actions/stepInto_dark",
+      "Name": "Step Into",
+      "SupportedInMultiActions": true,
+      "States": [
+        {
+          "Image": "icons/stepInto_dark"
+        }
+      ],
+      "Tooltip": "Step Into",
+      "UUID": "com.jetbrains.idea.step.into"
+    },
+    {
       "Icon": "icons/actions/stepOut_dark",
       "Name": "Step Out",
       "SupportedInMultiActions": true,
