@@ -42,6 +42,8 @@ Tips for none supported action so far such as
   ]]></description>
 
     <change-notes><![CDATA[
+    2024.3<br>
+    - Supports IDEs 2024.3.<br>
     2024.2.0<br>
     - Supports IDEs 2024.2 EAP.<br>
     2024.1.0<br>

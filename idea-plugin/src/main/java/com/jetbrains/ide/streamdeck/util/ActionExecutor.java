@@ -1,3 +1,7 @@
+/*
+ * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
+
 package com.jetbrains.ide.streamdeck.util;
 
 import com.intellij.execution.ExecutorRegistryImpl;
@@ -203,8 +207,11 @@ public class ActionExecutor {
         // Note: some action may produce exceptions if executed from the wrong focused component, eg:
         // GET http://localhost:63344/api/action/Vcs.ShowTabbedFileHistory requires a vcs file
         // TODO: Enable enable check?
-        AnActionEvent event = AnActionEvent.createFromDataContext(ActionPlaces.MAIN_TOOLBAR, action.getTemplatePresentation().clone(),
-                wrappedContext
+        AnActionEvent event = AnActionEvent.createEvent(wrappedContext,
+                action.getTemplatePresentation().clone(),
+                ActionPlaces.MAIN_TOOLBAR,
+                ActionUiKind.TOOLBAR,
+                null
                 // dataId -> {
                 //     // System.out.println("Request dataId =" + dataId);
                 //     Project project = ProjectUtil.tryGuessFocusedProject();
@@ -213,7 +220,6 @@ public class ActionExecutor {
                 //     if (CommonDataKeys.PROJECT.is(dataId)) return project;
                 //     return null;
                 // }
-
         );
         event.setInjectedContext(action.isInInjectedContext());
 
