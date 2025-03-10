@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+  ~ Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
   -->
 
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
@@ -42,31 +42,8 @@ Tips for none supported action so far such as
   ]]></description>
 
     <change-notes><![CDATA[
-    2024.3<br>
-    - Supports IDEs 2024.3.<br>
-    2024.2.0<br>
-    - Supports IDEs 2024.2 EAP.<br>
-    2024.1.0<br>
-    - Supports IDEs 2024.1.<br>
-    2023.3.2<br>
-    - 🆕New: Allow specific run configuration by name in the Stream Deck App's Run Action, please update to the latest
-     <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin"
-    >Stream Deck plugin</a>). <br>
-    2023.3.1<br>
-    - Fix can't execute any action issue in the IDE 2023.3 release https://github.com/JetBrains/intellij-streamdeck-plugin/issues/19.<br>
-    2023.3.0<br>
-    - Supports IDEs 2023.3 beta.<br>
-    2023.2.2<br>
-    - Supports remote control of the IDE action, not enabled by default(Note: does not support JetBrains Gateway/Client
-    so far, please update to the latest
-     <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/blob/main/releases/com.jetbrains.ide.streamDeckPlugin"
-    >Stream Deck plugin</a>), see <a href="https://github.com/JetBrains/intellij-streamdeck-plugin/issues/12">Intellij plugin - stream deck server binds to localhost only (Issue #12) </a>.<br>
-    - Fixed a bug that caused actions not to be performed when no editor was open.<br>
-    2023.2.1<br>
-     - Now supports ALL actions including third-party plugins' actions, using the IDE menu <b>Help | Open Action Browser </b> to easily find and copy all supported action IDs.<br>
-     - Support general Editor actions such as org.intellij.plugins.markdown.ui.actions.styling.ToggleBoldAction #10.<br>
-    2023.2.0<br>
-     - The initial release of the plugin.
+    2025.1<br>
+    - Supports IDEs 2025.1.<br>
   ]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.
