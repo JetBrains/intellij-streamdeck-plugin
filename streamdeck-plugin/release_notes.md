@@ -1,3 +1,3 @@
-1.0.4
+1.0.5
 
-- Updating element discovery to fix loading on macOS
+- Fix #18 Step Into for debugging

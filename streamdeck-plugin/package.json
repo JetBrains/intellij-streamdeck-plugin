@@ -9,7 +9,7 @@
     "lint": "eslint src/**/*.ts",
     "test": "jest --coverage",
     "tsc": "tsc -p tsconfig.json",
-    "distribution":"DistributionTool -b -i com.jetbrains.ide.sdPlugin -o ../releases"
+    "distribution":"./DistributionTool -b -i com.jetbrains.ide.sdPlugin -o ../releases"
   },
   "author": "Thibaut Sabot",
   "license": "MIT",
