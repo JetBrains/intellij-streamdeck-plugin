@@ -1,4 +1,6 @@
-// Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+/*
+ * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
 @file:Suppress("ReplaceGetOrSet", "ReplacePutWithAssignment")
 
 package com.jetbrains.ide.streamdeck.customization
@@ -100,7 +102,7 @@ private fun doLoadCustomIcon(urlString: String): Icon {
       throw FileNotFoundException("Failed to find icon by URL: $urlString")
     }
 
-    val icon = IconLoader.findUserIconByPath(file)
+    val icon = IconLoader.getIcon(urlString, IconLoader.javaClass.classLoader)
     val w = icon.iconWidth
     val h = icon.iconHeight
     if (w <= 1 || h <= 1) {
@@ -108,7 +110,7 @@ private fun doLoadCustomIcon(urlString: String): Icon {
     }
 
     if (w > EmptyIcon.ICON_18.iconWidth || h > EmptyIcon.ICON_18.iconHeight) {
-      return icon.scale(scale = EmptyIcon.ICON_18.iconWidth / w.coerceAtLeast(h).toFloat())
+      return IconUtil.downscaleIconToSize(icon, EmptyIcon.ICON_16.iconWidth, EmptyIcon.ICON_16.iconWidth)
     }
     return icon
   }

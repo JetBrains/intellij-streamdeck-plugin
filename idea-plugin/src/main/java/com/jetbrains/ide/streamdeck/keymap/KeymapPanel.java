@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
  */
 package com.jetbrains.ide.streamdeck.keymap;
 
@@ -184,7 +184,7 @@ public final class KeymapPanel extends JPanel implements SearchableConfigurable,
   }
 
   @Override
-  public void processCurrentKeymapChanged(QuickList @NotNull [] ids) {
+  public void processCurrentKeymapChanged(QuickList [] ids) {
     myQuickLists = ids;
     currentKeymapChanged();
   }
@@ -380,11 +380,6 @@ public final class KeymapPanel extends JPanel implements SearchableConfigurable,
 
   @Override
   public void dispose() {
-  }
-
-  public Shortcut @Nullable [] getCurrentShortcuts(@NotNull String actionId) {
-    Keymap keymap = myManager.getSelectedKeymap();
-    return keymap == null ? null : keymap.getShortcuts(actionId);
   }
 
   private void editSelection(InputEvent e, boolean isDoubleClick) {

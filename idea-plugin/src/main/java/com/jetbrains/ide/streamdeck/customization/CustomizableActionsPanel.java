@@ -1,4 +1,6 @@
-// Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+/*
+ * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
 package com.jetbrains.ide.streamdeck.customization;
 
 import com.intellij.codeInsight.hint.HintManager;
@@ -12,8 +14,6 @@ import com.intellij.openapi.actionSystem.ex.QuickList;
 import com.intellij.openapi.actionSystem.impl.ActionToolbarImpl;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.keymap.KeyMapBundle;
-import com.intellij.openapi.keymap.KeymapUtil;
-import com.intellij.openapi.keymap.impl.ui.ActionsTree;
 import com.intellij.openapi.keymap.impl.ui.Group;
 import com.intellij.openapi.keymap.impl.ui.Hyperlink;
 import com.intellij.openapi.options.ConfigurationException;
@@ -373,25 +373,6 @@ public class CustomizableActionsPanel {
       return first instanceof Group group ? group.getId() : (String)first;
     }
     return null;
-  }
-
-  static @NotNull Pair<@Nullable String, @Nullable Icon> getActionIdAndIcon(@NotNull DefaultMutableTreeNode node) {
-    Object userObj = node.getUserObject();
-    if (userObj instanceof String actionId) {
-      AnAction action = ActionManager.getInstance().getAction(actionId);
-      if (action != null) {
-        return Pair.create(actionId, action.getTemplatePresentation().getIcon());
-      }
-    }
-    else if (userObj instanceof Group group) {
-      return Pair.create(group.getId(), group.getIcon());
-    }
-    else if (userObj instanceof Pair<?, ?> pair) {
-      Object first = pair.first;
-      String actionId = first instanceof Group group ? group.getId() : (String)first;
-      return Pair.create(actionId, (Icon)pair.second);
-    }
-    return Pair.empty();
   }
 
   private static boolean doSetIcon(@NotNull CustomActionsSchema schema,

@@ -1,3 +1,7 @@
+/*
+ * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ */
+
 package com.jetbrains.ide.streamdeck.util;
 
 import com.intellij.openapi.actionSystem.*;
@@ -36,7 +40,8 @@ public class ProjectUtil {
                                                             @NotNull DataContext dataContext) {
         int modifiers = event == null ? 0 : event.getModifiers();
         // Presentation presentation = action.getTemplatePresentation().clone();
-        AnActionEvent anActionEvent = new AnActionEvent(event, dataContext, place, new Presentation(), ActionManager.getInstance(), modifiers);
+        AnActionEvent anActionEvent = new AnActionEvent(dataContext, new Presentation(), place,
+                ActionUiKind.TOOLBAR, event, modifiers, ActionManager.getInstance());
         anActionEvent.setInjectedContext(action.isInInjectedContext());
         return anActionEvent;
     }

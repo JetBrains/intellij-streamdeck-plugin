@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
  */
 package com.jetbrains.ide.streamdeck.keymap;
 
@@ -202,11 +202,11 @@ public final class ActionsTree {
     return null;
   }
 
-  public void reset(@NotNull Keymap keymap, QuickList @NotNull [] allQuickLists) {
+  public void reset(@NotNull Keymap keymap, QuickList [] allQuickLists) {
     reset(keymap, allQuickLists, myFilter, null);
   }
 
-  public void reset(@NotNull Keymap keymap, QuickList @NotNull [] allQuickLists, @Nullable Shortcut shortcut) {
+  public void reset(@NotNull Keymap keymap, QuickList [] allQuickLists, @Nullable Shortcut shortcut) {
     reset(keymap, allQuickLists, myFilter, shortcut);
   }
 
@@ -230,7 +230,7 @@ public final class ActionsTree {
     return myBaseFilter;
   }
 
-  private void reset(@NotNull Keymap keymap, QuickList @NotNull [] allQuickLists, String filter, @Nullable Shortcut shortcut) {
+  private void reset(@NotNull Keymap keymap, QuickList [] allQuickLists, String filter, @Nullable Shortcut shortcut) {
     myKeymap = keymap;
 
     final PathsKeeper pathsKeeper = new PathsKeeper();
