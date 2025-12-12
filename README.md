@@ -68,9 +68,10 @@ Click on the action and enter the following parameters:
 | Title Visible                          | N        | Toggle all buttons' title visibility                               |
 | Password for client connection         | Y        | The password to connect to the IDE(see [section](#in-IDE-Settings) |
 | Host                                   | Y        | Connect to a remote running IDE, default to localhost              |
-| Remote Port                            | Y        | Connect to a remote running IDE port                               |
+| Default Port                           | Y        | Connect to a remote running IDE port                               |
 | Customize Action                       | N        | The Action ID for the IDE(see [Limitations](#Limitations)          |
 | Run/Debug Configuration Name(Optional) | Y        | The Run/Debug Configuration to be used in the IDE                  |
+| Action Port (Optional)                 | Y        | Custom port for this action (overrides Default Port if set)         |
 
 **🆕New Built in Actions since 1.0.3:**
 

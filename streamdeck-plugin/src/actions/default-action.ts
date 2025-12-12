@@ -78,6 +78,11 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
             port = settings.port
         }
 
+        // Override with action-specific port if provided
+        if (payload.settings.port) {
+            port = payload.settings.port
+        }
+
         // Handle customized run/debug configuration
         let endpoint = `/api/action/${action}`;
 
