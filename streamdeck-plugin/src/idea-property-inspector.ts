@@ -28,6 +28,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   private saveElement: HTMLButtonElement;
   private showTitleElement: HTMLInputElement;
   private runConfigurationNameElement: HTMLInputElement;
+  private actionPortElement: HTMLInputElement;
 
   constructor() {
     super()
@@ -84,6 +85,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     this.saveElement = document.getElementById('save') as HTMLButtonElement;
     this.showTitleElement = document.getElementById('singlechk') as HTMLInputElement;
     this.runConfigurationNameElement = document.getElementById('run_config_name') as HTMLInputElement;
+    this.actionPortElement = document.getElementById('action_port') as HTMLInputElement;
   }
 
   /**
@@ -98,6 +100,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     const port = this.portElement?.value
     const action = this.actionElement.value
     const runConfig = this.runConfigurationNameElement.value
+    const actionPort = this.actionPortElement.value
     const showTitle = this.showTitleElement.checked ? "on" : "off"
     this.logMessage("action=" + action + ", showTitle=" + showTitle)
     this.settingsManager.setGlobalSettings({ password, host, port })
@@ -111,7 +114,8 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     this.setSettings({
       action: action,
       showTitle,
-      runConfig
+      runConfig,
+      port: actionPort
     })
     this.requestSettings() // requestSettings will add the options to the select element
 
@@ -179,6 +183,10 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
     if(this.runConfigurationNameElement) {
       this.runConfigurationNameElement.value = payload.settings.runConfig ?? "";
+    }
+
+    if(this.actionPortElement) {
+      this.actionPortElement.value = payload.settings.port ?? "";
     }
   }
 }
