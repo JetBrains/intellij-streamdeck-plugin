@@ -21,11 +21,12 @@ const pluginName = 'com.jetbrains.idea'
  * Load and save settings.
  */
 class IdeaPI extends StreamDeckPropertyInspectorHandler {
+  // Global settings
   private hostElement: HTMLInputElement;
   private portElement: HTMLInputElement;
   private passwordElement: HTMLInputElement;
+  // Action settings
   private actionElement: HTMLInputElement;
-  private saveElement: HTMLButtonElement;
   private showTitleElement: HTMLInputElement;
   private runConfigurationNameElement: HTMLInputElement;
   private actionPortElement: HTMLInputElement;
@@ -44,7 +45,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     // ) as HTMLElement;
     // this.mainElement.style.display = 'initial';
 
-    this.saveElement?.addEventListener('click', this.onSaveButtonPressed.bind(this))
     this.showTitleElement?.addEventListener('click', this.onUpdateTitleButtonPressed.bind(this))
 
     switch (this.actionInfo.action) {
@@ -82,44 +82,36 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
         'password'
     ) as HTMLInputElement;
     this.actionElement = document.getElementById('action') as HTMLInputElement;
-    this.saveElement = document.getElementById('save') as HTMLButtonElement;
     this.showTitleElement = document.getElementById('singlechk') as HTMLInputElement;
     this.runConfigurationNameElement = document.getElementById('run_config_name') as HTMLInputElement;
     this.actionPortElement = document.getElementById('action_port') as HTMLInputElement;
   }
 
-  /**
-   * Save global settings and customized action ID settings
-   * @private
-   */
-  private async onSaveButtonPressed() {
-    this.logMessage('onValidateButtonPressed()')
-
-    const password = (<HTMLInputElement>document.getElementById('password'))?.value
+  private saveAllSettings() {
+    const password = this.passwordElement?.value
     const host = this.hostElement?.value
     const port = this.portElement?.value
-    const action = this.actionElement.value
-    const runConfig = this.runConfigurationNameElement.value
-    const actionPort = this.actionPortElement.value
-    const showTitle = this.showTitleElement.checked ? "on" : "off"
-    this.logMessage("action=" + action + ", showTitle=" + showTitle)
     this.settingsManager.setGlobalSettings({ password, host, port })
 
-    switch (this.actionInfo.action) {
-      case pluginName + '.custom': {
-        break
-      }
-    }
-
     this.setSettings({
-      action: action,
-      showTitle,
-      runConfig,
-      port: actionPort
+      action: this.actionElement?.value ?? "",
+      showTitle: this.showTitleElement?.checked ? "on" : "off",
+      runConfig: this.runConfigurationNameElement?.value ?? "",
+      port: this.actionPortElement?.value ?? ""
     })
-    this.requestSettings() // requestSettings will add the options to the select element
+  }
 
-    // this.sendToPlugin( { showTitle }, "updateTitle")
+  private registerAutoSave() {
+    [
+      // Global
+      this.hostElement,
+      this.portElement,
+      this.passwordElement,
+      // Action
+      this.actionElement,
+      this.runConfigurationNameElement,
+      this.actionPortElement
+    ].forEach(el => el?.addEventListener('input', () => this.saveAllSettings()))
   }
 
   /**
@@ -143,6 +135,7 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   propertyInspectorDidAppear(): void {
     this.logMessage('propertyInspectorDidAppear()')
     this.initElements();
+    this.registerAutoSave();
     this.requestSettings()
     const globalSettings = this.settingsManager.getGlobalSettings<GlobalSettingsInterface>()
     // this.showTitleElement.checked = true
