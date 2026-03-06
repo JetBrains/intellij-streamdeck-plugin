@@ -27,7 +27,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
   private passwordElement: HTMLInputElement;
   // Action settings
   private actionElement: HTMLInputElement;
-  private showTitleElement: HTMLInputElement;
   private runConfigurationNameElement: HTMLInputElement;
   private actionPortElement: HTMLInputElement;
 
@@ -44,8 +43,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     //     'mainSettings'
     // ) as HTMLElement;
     // this.mainElement.style.display = 'initial';
-
-    this.showTitleElement?.addEventListener('click', this.onUpdateTitleButtonPressed.bind(this))
 
     switch (this.actionInfo.action) {
       case pluginName + '.run':
@@ -82,7 +79,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
         'password'
     ) as HTMLInputElement;
     this.actionElement = document.getElementById('action') as HTMLInputElement;
-    this.showTitleElement = document.getElementById('singlechk') as HTMLInputElement;
     this.runConfigurationNameElement = document.getElementById('run_config_name') as HTMLInputElement;
     this.actionPortElement = document.getElementById('action_port') as HTMLInputElement;
   }
@@ -95,7 +91,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
 
     this.setSettings({
       action: this.actionElement?.value ?? "",
-      showTitle: this.showTitleElement?.checked ? "on" : "off",
       runConfig: this.runConfigurationNameElement?.value ?? "",
       port: this.actionPortElement?.value ?? ""
     })
@@ -114,22 +109,6 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     ].forEach(el => el?.addEventListener('input', () => this.saveAllSettings()))
   }
 
-  /**
-   * Only update the title global visibility status.
-   * @private
-   */
-  private async onUpdateTitleButtonPressed() {
-    this.logMessage('onUpdateTitleButtonPressed()')
-
-    const showTitle = this.showTitleElement.checked ? "on" : "off"
-    // this.settingsManager.setGlobalSettings({ showTitle })
-    this.setSettings({
-      showTitle
-    })
-
-    // this.sendToPlugin( { showTitle }, "updateTitle")
-  }
-
   // Prefill PI elements from cache
   @SDOnPiEvent('globalSettingsAvailable')
   propertyInspectorDidAppear(): void {
@@ -138,12 +117,8 @@ class IdeaPI extends StreamDeckPropertyInspectorHandler {
     this.registerAutoSave();
     this.requestSettings()
     const globalSettings = this.settingsManager.getGlobalSettings<GlobalSettingsInterface>()
-    // this.showTitleElement.checked = true
 
     if (isGlobalSettingsSet(globalSettings)) {
-      // const showTitle = globalSettings.showTitle
-      // this.showTitleElement.checked = (showTitle === "on");
-
       const password = globalSettings.password;
       if(password) {
         this.passwordElement.value = password;
