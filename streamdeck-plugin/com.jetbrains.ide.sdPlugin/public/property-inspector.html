@@ -11,46 +11,31 @@
     </head>
     <body>
         <div class="sdpi-wrapper" id="mainSettings">
-
-            <div type="checkbox" class="sdpi-item" id="single-check">
-                <div class="sdpi-item-label">Action Tip</div>
-                <input id="singlechk" type="checkbox" value="on"> <label for="singlechk">Visible</label>
-            </div>
-
             <div class="hidden" id="run_config">
                 <div class="sdpi-item-label host-label">Run/Debug Configuration Name(Optional)</div>
                 <input class="sdpi-item-value" type="text" id="run_config_name">
             </div>
-
-            <details>
-                <summary>Advanced Settings</summary>
-                <div class="sdpi-item">
-                    <div class="sdpi-item-label action-label">Customize Action ID</div>
-                    <input class="sdpi-item-value" type="text" id="action">
-                </div>
-                <div class="sdpi-item">
-                    <div class="sdpi-item-label port-label">Action Port</div>
-                    <input class="sdpi-item-value" placeholder="Leave empty to use Default Port" type="number" id="action_port">
-                </div>
-                <div class="sdpi-item">
-                    <div class="sdpi-item-label host-label">Host</div>
-                    <input class="sdpi-item-value" type="text" id="host">
-                </div>
-                <div class="sdpi-item">
-                    <div class="sdpi-item-label port-label">Default Port</div>
-                    <input class="sdpi-item-value" type="number" id="port">
-                </div>
-                <div class="sdpi-item">
-                    <div class="sdpi-item-label password-label">Password</div>
-                    <input class="sdpi-item-value" type="password" id="password">
-                </div>
-
-            </details>
-
             <div class="sdpi-item">
-                <button class="sdpi-item-value save-label" id="save">Save</button>
+                <div class="sdpi-item-label action-label">Customize Action ID</div>
+                <input class="sdpi-item-value" type="text" id="action">
             </div>
-
+            <div class="sdpi-item">
+                <div class="sdpi-item-label port-label">Action Port</div>
+                <input class="sdpi-item-value" placeholder="Leave empty to use Default Port" type="number" id="action_port">
+            </div>
+            <div class="sdpi-heading">Global Settings</div>
+            <div class="sdpi-item">
+                <div class="sdpi-item-label host-label">Host</div>
+                <input class="sdpi-item-value" type="text" id="host">
+            </div>
+            <div class="sdpi-item">
+                <div class="sdpi-item-label port-label">Default Port</div>
+                <input class="sdpi-item-value" type="number" id="port">
+            </div>
+            <div class="sdpi-item">
+                <div class="sdpi-item-label password-label">Password</div>
+                <input class="sdpi-item-value" type="password" id="password">
+            </div>
         </div>
 
         <div class="sdpi-heading">Support / Feedback</div>

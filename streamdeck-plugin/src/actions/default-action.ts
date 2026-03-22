@@ -1,9 +1,7 @@
 import {
-    DidReceiveGlobalSettingsEvent,
     DidReceiveSettingsEvent,
     KeyUpEvent,
     SDOnActionEvent,
-    SendToPluginEvent,
     StreamDeckAction,
     WillAppearEvent,
     WillDisappearEvent
@@ -21,7 +19,6 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
 
     protected context: string;
     protected customTitle: string;
-    protected showTitle: string;
 
     public constructor(public plugin: IdeaPlugin, actionName: string) {
         super(plugin, actionName);
@@ -111,7 +108,7 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
         console.log('onContextAppear() actionId=' + this.actionId() + " context=" + context)
         this.context = context // Save for later update title
         this.readCustomActionTitle(payload.settings)
-        this.toggleTitleVisible()
+        this.updateTitle()
     }
 
     private readCustomActionTitle(settings: ActionSettingsInterface): void {
@@ -127,16 +124,9 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
         this.customTitle = actionTitle;
     }
 
-    toggleTitleVisible(): void {
-        if (this.showTitle !== "on" && this.context != undefined) {
-            this.plugin.setTitle("", this.context);
-        } else if (this.context != undefined) {
-            if (this.customTitle == null || this.customTitle === '') {
-                this.plugin.setTitle("", this.context);
-                return
-            } else {
-                this.plugin.setTitle(this.customTitle, this.context);
-            }
+    private updateTitle(): void {
+        if (this.context != undefined && this.customTitle) {
+            this.plugin.setTitle(this.customTitle, this.context);
         }
     }
 
@@ -144,40 +134,9 @@ export abstract class DefaultAction<Instance> extends StreamDeckAction<
     onContextDisappear(event: WillDisappearEvent): void {
     }
 
-    // TODO Not work?!
-    @SDOnActionEvent('sendToPlugin')
-    onSendToPluginEvent({context, payload}: SendToPluginEvent): void {
-        console.log('onSendToPluginEvent() payload.showTitle=' + payload.showTitle)
-    }
-
-    /**
-     * Update current button's title based on the customized action id (if any)
-     * @param context
-     * @param settings
-     * @private
-     */
     @SDOnActionEvent('didReceiveSettings')
-    private onSettings({context, payload: {settings}}: DidReceiveSettingsEvent<ActionSettingsInterface>) {
-        console.log('onSettings() settings.action=' + settings.action)
-        console.log('onSettings() settings.showTitle=' + settings.showTitle)
-        this.showTitle = settings.showTitle;
+    private onSettings({payload: {settings}}: DidReceiveSettingsEvent<ActionSettingsInterface>) {
         this.readCustomActionTitle(settings)
-        this.toggleTitleVisible()
-    }
-
-    /**
-     * Once triggered the title visible checkbox in the Property Inspection page, this event will be fired again but
-     * no context provided.
-     * @param settings
-     * @private
-     */
-    @SDOnActionEvent('didReceiveGlobalSettings')
-    private onReceiveGlobalSettings({payload: {settings}}: DidReceiveGlobalSettingsEvent<GlobalSettingsInterface>) {
-        // this.plugin.setTitle(settings.count.toString() ?? 0, context);
-        // console.log('onReceiveGlobalSettings() payload.showTitle=' + settings.showTitle)
-        // this.showTitle = settings.showTitle;
-
-        // console.log('onReceiveGlobalSettings() this.context=' + this.context)
-        // this.toggleTitleVisible();
+        this.updateTitle()
     }
 }

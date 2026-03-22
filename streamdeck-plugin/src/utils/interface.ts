@@ -15,7 +15,6 @@ export interface GlobalSettingsInterface {
  */
 export interface ActionSettingsInterface {
   action: string // Custom action ID
-  showTitle: string // Whether show action tip
   runConfig: string // Customized Run/Debug Configuration Name(Optional)
   port: string // Optional port override for this action (overrides Default Port)
 }

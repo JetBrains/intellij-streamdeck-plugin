@@ -262,7 +262,7 @@ option {
     padding: 0px 4px 0px 4px;
 }
 
-.sdpi-item > *:not(.sdpi-item-label.empty):not(meter) {
+.sdpi-item > *:not(.sdpi-item-label):not(meter) {
     min-height: 26px;
     padding: 0px 4px 0px 4px;
 }
