@@ -9,7 +9,7 @@
     "lint": "eslint src/**/*.ts",
     "test": "jest --coverage",
     "tsc": "tsc -p tsconfig.json",
-    "distribution":"./DistributionTool -b -i com.jetbrains.ide.sdPlugin -o ../releases"
+    "distribution":"streamdeck pack com.jetbrains.ide.sdPlugin --force -o ../releases"
   },
   "author": "Thibaut Sabot",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "@types/node": "^17.0.33",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
-    "eslint": "^8.15.0",
+    "eslint": "9.26.0",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
