@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2000-2026 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
  */
 
 import org.jetbrains.changelog.Changelog
@@ -38,7 +38,8 @@ dependencies {
 
     // IntelliJ Platform Gradle Plugin Dependencies Extension - read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin-dependencies-extension.html
     intellijPlatform {
-        create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
+        // create(providers.gradleProperty("platformType"), providers.gradleProperty("platformVersion"))
+        intellijIdea(providers.gradleProperty("platformVersion"), configure = { useInstaller = true})
 
         // Plugin Dependencies. Uses `platformBundledPlugins` property from the gradle.properties file for bundled IntelliJ Platform plugins.
         bundledPlugins(providers.gradleProperty("platformBundledPlugins").map { it.split(',') })
@@ -48,7 +49,7 @@ dependencies {
 
         pluginVerifier()
         zipSigner()
-        testFramework(TestFrameworkType.Platform)
+        testFramework(TestFrameworkType.Bundled)
     }
 }
 
@@ -105,8 +106,8 @@ intellijPlatform {
 
     pluginVerification {
         ides {
-            ides(providers.gradleProperty("pluginVerifierIdeVersions").get().split(","))
-//                recommended()
+//            ides(providers.gradleProperty("pluginVerifierIdeVersions").get().split(","))
+                recommended()
         }
 
         failureLevel.set(
@@ -139,5 +140,10 @@ tasks {
 
     publishPlugin {
 //        dependsOn(patchChangelog)
+    }
+
+    // https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin-faq.html#how-to-disable-building-searchable-options
+    buildSearchableOptions {
+        enabled = false
     }
 }

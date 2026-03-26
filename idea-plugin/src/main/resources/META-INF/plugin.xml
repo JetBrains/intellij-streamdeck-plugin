@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+  ~ Copyright 2000-2026 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
   -->
 
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
@@ -42,8 +42,8 @@ Tips for none supported action so far such as
   ]]></description>
 
     <change-notes><![CDATA[
-    2025.2<br>
-    - Supports IDEs 2025.2.<br>
+    2026.1<br>
+    - Supports IDEs 2026.1.<br>
   ]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.
