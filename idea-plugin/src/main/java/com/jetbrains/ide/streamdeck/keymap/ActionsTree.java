@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2025 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2000-2026 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
  */
 package com.jetbrains.ide.streamdeck.keymap;
 
@@ -22,6 +22,7 @@ import com.intellij.openapi.keymap.Keymap;
 import com.intellij.openapi.keymap.KeymapUtil;
 import com.intellij.openapi.keymap.ex.KeymapManagerEx;
 import com.intellij.openapi.keymap.impl.KeymapImpl;
+import com.intellij.openapi.keymap.impl.ui.ActionTreeGroupUtil;
 import com.intellij.openapi.keymap.impl.ui.ActionsTreeUtil;
 import com.intellij.openapi.keymap.impl.ui.Group;
 import com.intellij.openapi.keymap.impl.ui.Hyperlink;
@@ -59,6 +60,10 @@ import java.awt.event.MouseMotionAdapter;
 import java.util.List;
 import java.util.*;
 
+/**
+ * Modified from
+ * @see com.intellij.openapi.keymap.impl.ui.ActionsTree
+ */
 public final class ActionsTree {
   private static final Logger LOG = Logger.getInstance(ActionsTree.class);
 
@@ -242,11 +247,11 @@ public final class ActionsTree {
     Project project = CommonDataKeys.PROJECT.getData(DataManager.getInstance().getDataContext(myComponent));
     Condition<? super AnAction>
       condFilter = combineWithBaseFilter(ActionsTreeUtil.isActionFiltered(actionManager, keymap, shortcut, filter, true));
-    Group mainGroup = ActionsTreeUtil.createMainGroup(project, keymap, allQuickLists, filter, true, condFilter);
+    Group mainGroup = ActionTreeGroupUtil.createMainGroup(project, keymap, allQuickLists, filter, true, condFilter);
 
     if ((filter != null && filter.length() > 0 || shortcut != null) && mainGroup.initIds().isEmpty()) {
       condFilter = combineWithBaseFilter(ActionsTreeUtil.isActionFiltered(actionManager, keymap, shortcut, filter, false));
-      mainGroup = ActionsTreeUtil.createMainGroup(project, keymap, allQuickLists, filter, false, condFilter);
+      mainGroup = ActionTreeGroupUtil.createMainGroup(project, keymap, allQuickLists, filter, false, condFilter);
     }
 
     myRoot = ActionsTreeUtil.createNode(mainGroup);
