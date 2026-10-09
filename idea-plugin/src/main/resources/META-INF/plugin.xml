@@ -17,7 +17,7 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description><![CDATA[<h1> Stream Deck plugin for local and remote running IntelliJ IDE, now supports ALL actions</h1>
+    <description><![CDATA[<h1> Stream Deck plugin for local and remote running IntelliJ IDEs, now supports almost ALL actions</h1>
 A plugin for IntelliJ IDE that works as a backend action service for the companion Stream Deck plugin:
 <a href="https://marketplace.elgato.com/product/jetbrains-ide-f20a34c4-8965-4e21-8c6a-2454786d748b">IntelliJ IDE</a>.
 <br>
@@ -42,8 +42,8 @@ Tips for none supported action so far such as
   ]]></description>
 
     <change-notes><![CDATA[
-    2026.2<br>
-    - Supports IDEs 2026.2.<br>
+    2027.1<br>
+    - Supports IDEs 2027.1.<br>
   ]]></change-notes>
 
     <!-- Product and plugin compatibility requirements.
